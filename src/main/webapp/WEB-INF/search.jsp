@@ -10,7 +10,7 @@
 </head>
 <body>
 	<header>
-		<form action="/search" class="search-form" >
+		<form action="/search" class="search-form" method="get">
 			<label for="search">Search For Artist</label> 
 			<input type="text" name="search" />
 				<input type="submit" value="Search" />
@@ -28,7 +28,8 @@
 		Results for
 		<c:out value="${search}" />
 	</h1>
-
+<!-- TEST -->
+<!-- TEST -->
 	<c:forEach items="${results.items}" var="result">
 		<h2>
 			<c:out value="${result.name}" />
@@ -36,7 +37,6 @@
 		<img src="${result.images[0].url}" alt="" width="100px;" />
 	<a href="/view/${result.id}">View</a>
 	<a href="/explore/${result.id}">Explore</a>
-
 	</c:forEach>
 </body>
 </html>
