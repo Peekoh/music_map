@@ -32,6 +32,7 @@ public String findArtists(Model model, @RequestParam(value="search", required=fa
 }
 @RequestMapping("/view/{id}")
 public String viewArtist(Model model, @PathVariable("id") String artistId) {
+	
 	return "viewArtist.jsp";
 }
 	
