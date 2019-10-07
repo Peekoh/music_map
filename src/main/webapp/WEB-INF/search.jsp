@@ -28,7 +28,7 @@
 		Results for
 		<c:out value="${search}" />
 	</h1>
-
+<!-- TEST -->
 	<c:forEach items="${results.items}" var="result">
 		<h2>
 			<c:out value="${result.name}" />
