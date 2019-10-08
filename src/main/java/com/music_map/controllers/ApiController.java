@@ -37,6 +37,14 @@ public class ApiController {
 	@RequestMapping("/search")
 	public String findArtists(Model model, @RequestParam(value = "search", required = false) String artist,
 			HttpSession session) {
+		Long userId = (Long) session.getAttribute("userId");
+		System.out.println("USER ID" + userId);
+		if (userId != null) {
+			User user = mainService.findUserById(userId);
+			model.addAttribute("currentUser", user);
+		} else {
+			model.addAttribute("currentUser", null);
+		}
 		ApiService.clientCredentials_Async();
 		if (artist != null) {
 			Paging<Artist> results = api.searchArtist(artist);
