@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,8 +65,15 @@
 	<div id="reviews">
 	<c:forEach items="${reviews}" var="review">
 	<div>
+	<div>	</div>
 	<span>User:</span>
+	<a href="/user/${review.user.id }"></a>
+	<img src="" alt="" />
+	</div>
 	<c:out value="${review.reviewBody}"/>
+	<p>
+	Posted: <fmt:formatDate dateStyle="short" value="${review.createdAt}"></fmt:formatDate>
+	</p>
 	
 	</div>
 	

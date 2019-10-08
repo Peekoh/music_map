@@ -57,7 +57,10 @@ public class ApiController {
 		return "viewArtist.jsp";
 	}
 
-//MOVE TO MAIN CONTROLLER
+/*MOVE TO MAIN CONTROLLER*/
+	//
+	//
+	//
 //CREATE REVIEW
 	@PostMapping("/review/{artistId}")
 	public String reviewArtist(Model model,  @PathVariable("artistId") String artistId, @Valid @ModelAttribute("newReview") Review review, BindingResult result) {
@@ -68,7 +71,7 @@ public class ApiController {
 			return "redirect:/view/{artistId}";
 		}
 	}
-	
+	//ARTIST EXPLORE
 	@GetMapping("/explore/{artistId}")
 	public String artistExplore(Model model, @PathVariable("artistId") String artistId) {
 		Artist[] related = api.findRelated(artistId);
@@ -77,5 +80,8 @@ public class ApiController {
 		model.addAttribute("relatedArtists", related);
 		return "exploreArtist.jsp";
 	}
-	
+	//VIEW USER
+	/*
+	 * @RequestMapping("/user/{id}") public String viewUser(Model, @PathVariable)
+	 */
 }

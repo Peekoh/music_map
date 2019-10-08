@@ -1,6 +1,7 @@
 package com.music_map.models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,6 +27,7 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	private String file;
 	@Size(min = 1, message = "First name field must not be empty")
 	private String firstName;
 	@Size(min = 1, message = "Last name field must not be empty")
@@ -42,11 +44,32 @@ public class User {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date updatedAt;
 	
-//	@ManyToMany(fetch = FetchType.LAZY)
-//	@JoinTable(name = "Reviews", joinColumns = @JoinColumn(name = "user_id"))
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(
+			name = "reviews", 
+			joinColumns = @JoinColumn(name = "user_id"),
+			inverseJoinColumns = @JoinColumn(name = "review_id")
+			)
+	private List<Review> reviews;
 	
 	public User() {
 		
+	}
+
+	public String getFile() {
+		return file;
+	}
+
+	public void setFile(String file) {
+		this.file = file;
+	}
+
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
 	}
 
 	public Long getId() {
