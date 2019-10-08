@@ -1,11 +1,13 @@
 package com.music_map.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.music_map.models.Review;
 import com.music_map.models.User;
 import com.music_map.repositories.UserRepository;
 
@@ -32,6 +34,10 @@ public class MainService {
 		} else {
 			return null;
 		}
+	}
+	public List<Review> getUserReviews(User u){
+		return u.getReviews();
+		
 	}
 
 	public boolean authenticateUser(String email, String password) {

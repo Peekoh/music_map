@@ -1,12 +1,16 @@
 package com.music_map.services;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
 import org.springframework.stereotype.Service;
 
+import com.music_map.models.Review;
+import com.music_map.repositories.ReviewRepository;
 //import com.music_map.services.*;
 import com.wrapper.spotify.SpotifyApi;
 import com.wrapper.spotify.exceptions.SpotifyWebApiException;
@@ -22,6 +26,8 @@ import com.wrapper.spotify.requests.data.search.simplified.SearchArtistsRequest;
 
 @Service
 public class ApiService {
+
+	//private final ReviewRepository reviewRepo;
 
 	// CREATE API OBJECT
 	private static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
@@ -94,6 +100,22 @@ public class ApiService {
 			System.out.println("ERROR: " + e.getMessage());
 			return null;
 		}
+	}
+	//GET ARTISTS OF REVIEWS
+	public List<Artist> findReviewArtists(List<Review> r ){
+		List<Artist> reviewedArtists = new ArrayList<>();
+		for(int i = 0; i < r.size(); i++) {
+			String artistId = r.get(i).getArtistId();
+			final GetArtistRequest getArtistRequest = spotifyApi.getArtist(artistId).build();
+			try {
+				final Artist artist = getArtistRequest.execute();
+				System.out.println(artist.getName());
+				reviewedArtists.add(artist);
+			} catch (IOException | SpotifyWebApiException e) {
+				System.out.println("ERROR: " + e.getMessage());
+			}
+		}
+		return reviewedArtists;
 	}
 
 }

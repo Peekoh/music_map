@@ -28,7 +28,6 @@ public class ApiController {
 	ApiService api = new ApiService();
 	public final ReviewService reviewService;
 	public final MainService mainService;
-
 	public ApiController(ApiService api, ReviewService reviewService, MainService mainService) {
 		this.reviewService = reviewService;
 		this.mainService = mainService;
@@ -38,6 +37,14 @@ public class ApiController {
 	@RequestMapping("/search")
 	public String findArtists(Model model, @RequestParam(value = "search", required = false) String artist,
 			HttpSession session) {
+		Long userId = (Long) session.getAttribute("userId");
+		System.out.println("USER ID" + userId);
+		if (userId != null) {
+			User user = mainService.findUserById(userId);
+			model.addAttribute("currentUser", user);
+		} else {
+			model.addAttribute("currentUser", null);
+		}
 		ApiService.clientCredentials_Async();
 		if (artist != null) {
 			Paging<Artist> results = api.searchArtist(artist);
@@ -113,7 +120,10 @@ public class ApiController {
 		//gets user of profile
 		User viewedUser = mainService.findUserById(viewId);
 		model.addAttribute("viewedUser", viewedUser);
-		
+		//get artists that are reviewed
+		List<Review> reviews = mainService.getUserReviews(viewedUser);
+		List<Artist> reviewedArtists = api.findReviewArtists(reviews);
+		model.addAttribute("reviewedArtists", reviewedArtists);
 		return "viewUser.jsp";
 	}
 }
