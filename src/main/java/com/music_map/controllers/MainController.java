@@ -39,15 +39,15 @@ public class MainController {
 	}
 	
 	/* VIEW REGISTRATION */
-	@RequestMapping("/registration")
+	@RequestMapping("/register")
 	public String registerForm(@ModelAttribute("user") User user) {
-		return "";
+		return "registration.jsp";
 	}
 
 	/* VIEW LOGIN */
 	@RequestMapping("/login")
 	public String login() {
-		return "";
+		return "login.jsp";
 	}
 
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)

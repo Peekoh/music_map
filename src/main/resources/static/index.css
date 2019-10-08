@@ -86,6 +86,13 @@
   z-index: -1000;
 }
 
+.search-form {
+    display: inline-flex;
+    margin-top: 0em;
+}
+
+
+
 .search {
   top: 0;
   bottom: auto;
@@ -95,6 +102,7 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  display: inline-flex;
 }
 
 input.transparent-input{
