@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
@@ -103,8 +103,10 @@
                     </ul>
                      <li data-toggle="collapse" data-target="#user" >
                         <a href="/user">
-                            <i class="fa fa-user"></i> Lorenzo Ash
-                           
+                            <i class="fa fa-user"></i>
+                          
+                            <c:out value="${user.firstName}"/>
+                            
                         </a>
                     </li>
                     </a>

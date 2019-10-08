@@ -28,7 +28,14 @@ public class MainController {
 
 	/* VIEW HOME */
 	@RequestMapping("/")
-	public String viewHome() {
+	public String viewHome(HttpSession session, Model model) {
+		Long userId = (Long) session.getAttribute("userId");
+		if(userId !=null) {
+			User u = mainService.findUserById(userId);
+			model.addAttribute("user" ,u);
+		} else {
+			model.addAttribute("user", null);
+		}
 		return "home.jsp";
 	}
 
@@ -41,7 +48,7 @@ public class MainController {
 	/* VIEW REGISTRATION */
 	@RequestMapping("/register")
 	public String registerForm(@ModelAttribute("user") User user) {
-		return "registration.jsp";
+		return "register.jsp";
 	}
 
 	/* VIEW LOGIN */
@@ -54,7 +61,7 @@ public class MainController {
 	public String registerUser(@Valid @ModelAttribute("user") User user, BindingResult result, HttpSession session) {
 	userValidator.validate(user, result);
 		if (result.hasErrors()) {
-			return "";
+			return "register.jsp";
 		}
 		User u = mainService.registerUser(user);
 		session.setAttribute("userId", u.getId());
@@ -71,8 +78,14 @@ public class MainController {
 			return "redirect:/";
 		} else {
 			model.addAttribute("error", "Invalid Credenttials. Please try again.");
-			return "";
+			return "login.jsp";
 		}
+	}
+	
+	@RequestMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
 	}
 
 
