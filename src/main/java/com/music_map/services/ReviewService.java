@@ -23,4 +23,6 @@ public List<Review> getAllReview(String id){
 	List<Review> reviews = reviewRepo.findByArtistId(id);
 	return reviews;
 }
+
+
 }

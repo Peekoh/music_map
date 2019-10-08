@@ -28,7 +28,6 @@ public class ApiController {
 	ApiService api = new ApiService();
 	public final ReviewService reviewService;
 	public final MainService mainService;
-
 	public ApiController(ApiService api, ReviewService reviewService, MainService mainService) {
 		this.reviewService = reviewService;
 		this.mainService = mainService;
@@ -113,7 +112,10 @@ public class ApiController {
 		//gets user of profile
 		User viewedUser = mainService.findUserById(viewId);
 		model.addAttribute("viewedUser", viewedUser);
-		
+		//get artists that are reviewed
+		List<Review> reviews = mainService.getUserReviews(viewedUser);
+		List<Artist> reviewedArtists = api.findReviewArtists(reviews);
+		model.addAttribute("reviewedArtists", reviewedArtists);
 		return "viewUser.jsp";
 	}
 }
