@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,8 +19,22 @@
 </head>
 <body>
 	<div class="navbar">
+	
+	 <c:choose>
+    <c:when test="${user == null}">
         <a href="/login">Login</a>
         <a href="/register">Register</a>
+    </c:when>
+    <c:otherwise><div id="userName">
+    <span>Hello, </span>
+    <c:out value="${user.firstName}"/>
+    <a href="/logout">Logout</a>
+    </div>
+    <%-- <span>Hello, </span>
+    <c:out value="${user.firstName}"/> --%>
+    </c:otherwise>
+    </c:choose>
+        
         	<div class="dropdown">
             	<button class="dropbtn">Genre Music
                     <i class="fa fa-caret-down"></i>
