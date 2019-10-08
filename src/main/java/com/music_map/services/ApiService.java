@@ -17,11 +17,13 @@ import com.wrapper.spotify.model_objects.specification.Paging;
 import com.wrapper.spotify.requests.authorization.client_credentials.ClientCredentialsRequest;
 import com.wrapper.spotify.requests.data.artists.GetArtistRequest;
 import com.wrapper.spotify.requests.data.artists.GetArtistsAlbumsRequest;
+import com.wrapper.spotify.requests.data.artists.GetArtistsRelatedArtistsRequest;
 import com.wrapper.spotify.requests.data.search.simplified.SearchArtistsRequest;
 
 @Service
 public class ApiService {
-	//CREATE API OBJECT
+
+	// CREATE API OBJECT
 	private static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
 			.setClientId("23599b46f39d456f98e70fb4a8e7f8f7").setClientSecret("71506a1ee74443969d298cb089b361f3")
 			.build();
@@ -48,37 +50,50 @@ public class ApiService {
 			System.out.println("Async operation cancelled.");
 		}
 	}
-	//SEARCH ARTISTS
+
+	// SEARCH ARTISTS
 	public Paging<Artist> searchArtist(String a) {
 		final SearchArtistsRequest searchArtists = spotifyApi.searchArtists(a).build();
 		final CompletableFuture<Paging<Artist>> artist = searchArtists.executeAsync();
 		final Paging<Artist> artistsPage = artist.join();
 		return artistsPage;
 	}
-	//GET SPECIFIC ARTIST
+
+	// GET SPECIFIC ARTIST
 	public Artist findArtistById(String id) {
-		 final GetArtistRequest getArtistRequest = spotifyApi.getArtist(id)
-				.build();
+		final GetArtistRequest getArtistRequest = spotifyApi.getArtist(id).build();
 		try {
 			final Artist artist = getArtistRequest.execute();
 			System.out.println(artist.getName());
 			return artist;
-		}catch(IOException | SpotifyWebApiException e) {
-			System.out.println("ERROR: "+e.getMessage());
+		} catch (IOException | SpotifyWebApiException e) {
+			System.out.println("ERROR: " + e.getMessage());
 		}
 		return null;
 	}
-	//GET ALBUMS OF ARTIST
-	public Paging<AlbumSimplified> findAlbums(String id){
-	final GetArtistsAlbumsRequest getAlbums = spotifyApi.getArtistsAlbums(id)
-			.build();
-	try {
-		final Paging<AlbumSimplified> albumPaging = getAlbums.execute();
-		return albumPaging;
-	}catch (IOException | SpotifyWebApiException e) {
-		System.out.println("ERROR: " + e.getMessage());
-		return null;
+
+	// GET ALBUMS OF ARTIST
+	public Paging<AlbumSimplified> findAlbums(String id) {
+		final GetArtistsAlbumsRequest getAlbums = spotifyApi.getArtistsAlbums(id).build();
+		try {
+			final Paging<AlbumSimplified> albumPaging = getAlbums.execute();
+			return albumPaging;
+		} catch (IOException | SpotifyWebApiException e) {
+			System.out.println("ERROR: " + e.getMessage());
+			return null;
+		}
 	}
+
+	// GET RELATED ARTIST
+	public Artist[] findRelated(String id) {
+		final GetArtistsRelatedArtistsRequest getRelated = spotifyApi.getArtistsRelatedArtists(id).build();
+		try {
+			final Artist[] artists = getRelated.execute();
+			return artists;
+		} catch (IOException | SpotifyWebApiException e) {
+			System.out.println("ERROR: " + e.getMessage());
+			return null;
+		}
 	}
 
 }

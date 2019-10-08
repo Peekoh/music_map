@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -14,23 +16,27 @@ import javax.validation.constraints.Size;
 @Table(name = "reviews")
 public class Review {
 @Id
-@GeneratedValue(strategy = GenerationType.IDENTITY )
+@GeneratedValue(strategy = GenerationType.IDENTITY)
 private Long id;
 @Size(min = 1, max = 500)
 private String reviewBody;
 private String artistId;
-
+@Size(min = 1, max = 5)
+private String rating;
 @Column(updatable = false)
 private Date createdAt;
 private Date updatedAt;
-
-
 public Review() {}
-
 public Long getId() {
 	return id;
 }
 
+public String getRating() {
+	return rating;
+}
+public void setRating(String rating) {
+	this.rating = rating;
+}
 public void setId(Long id) {
 	this.id = id;
 }
@@ -67,5 +73,13 @@ public void setUpdatedAt(Date updatedAt) {
 	this.updatedAt = updatedAt;
 }
 
+@PrePersist
+protected void onCreate() {
+	this.createdAt = new Date();
+}
 
+@PreUpdate
+protected void onUpdate() {
+	this.updatedAt = new Date();
+}
 }
