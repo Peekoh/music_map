@@ -32,13 +32,31 @@
 <title>Registration Page</title>
 </head>
 <body>
-	
 
 	<p>
 		<form:errors path="user.*" />
 	</p>
+	<div class="navbar">
+        <a href="/">Home</a>
+        <a href="/register">Register</a>
+        	<div class="dropdown">
+            	<button class="dropbtn">Genre Music
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                  <div class="dropdown-content">
+                    <a href="#">Country</a>
+                    <a href="#">Rock</a>
+                    <a href="#">Jazz</a>
+                    <a href="#">Hip Hop</a>
+                    <a href="#">Blues</a>
+                    <a href="#">Heavy Metal</a>
+                    <a href="#">Pop</a>
+                  </div>
+                </div> 
+              </div>
 
 	<div class="page-wrapper bg-gra-01 p-t-180 p-b-100 font-poppins">
+	
         <div class="wrapper wrapper--w780">
             <div class="card card-3">
                 <div class="card-heading"></div>
