@@ -28,32 +28,32 @@ public class MainController {
 
 	/* VIEW HOME */
 	@RequestMapping("/")
-	public String viewHome(HttpSession session, Model model) {
+	public String viewHome(Model model, HttpSession session) {
 		Long userId = (Long) session.getAttribute("userId");
-		if(userId !=null) {
-			User u = mainService.findUserById(userId);
-			model.addAttribute("user" ,u);
+		if (userId != null) {
+			User user = mainService.findUserById(userId);
+			model.addAttribute("currentUser", user);
 		} else {
-			model.addAttribute("user", null);
+			model.addAttribute("currentUser", null);
 		}
 		return "home.jsp";
 	}
 
 	/* VIEW PROFILE */
 	@RequestMapping("/profile/{id}")
-	public String viewProfile(Model model, @PathVariable("id") Long id) {
+	public String viewProfile(Model model, @PathVariable("id") Long id, HttpSession session) {
 		return "profile.jsp";
 	}
 	
 	/* VIEW REGISTRATION */
 	@RequestMapping("/register")
-	public String registerForm(@ModelAttribute("user") User user) {
+	public String registerForm(@ModelAttribute("user") User user, HttpSession session) {
 		return "register.jsp";
 	}
 
 	/* VIEW LOGIN */
 	@RequestMapping("/login")
-	public String login() {
+	public String login(HttpSession session) {
 		return "login.jsp";
 	}
 
@@ -75,17 +75,12 @@ public class MainController {
 		if (isAuthenticated) {
 			User u = mainService.findByEmail(email);
 			session.setAttribute("userId", u.getId());
+			System.out.println("SUCCESS");
 			return "redirect:/";
 		} else {
 			model.addAttribute("error", "Invalid Credenttials. Please try again.");
 			return "login.jsp";
 		}
-	}
-	
-	@RequestMapping("/logout")
-	public String logout(HttpSession session) {
-		session.invalidate();
-		return "redirect:/";
 	}
 
 
