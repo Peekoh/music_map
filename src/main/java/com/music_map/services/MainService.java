@@ -27,7 +27,6 @@ public class MainService {
 
 	public User findUserById(Long id) {
 		Optional<User> u = userRepository.findById(id);
-
 		if (u.isPresent()) {
 			return u.get();
 		} else {

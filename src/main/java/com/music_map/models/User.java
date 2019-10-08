@@ -9,20 +9,19 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,16 +43,11 @@ public class User {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date updatedAt;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(
-			name = "reviews", 
-			joinColumns = @JoinColumn(name = "user_id"),
-			inverseJoinColumns = @JoinColumn(name = "review_id")
-			)
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<Review> reviews;
-	
+
 	public User() {
-		
+
 	}
 
 	public String getFile() {
@@ -135,7 +129,7 @@ public class User {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
+
 	@PrePersist
 	protected void onCreate() {
 		this.createdAt = new Date();

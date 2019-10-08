@@ -21,13 +21,13 @@
 	<div class="navbar">
 	
 	 <c:choose>
-    <c:when test="${user == null}">
+    <c:when test="${currentUser == null}">
         <a href="/login">Login</a>
         <a href="/register">Register</a>
     </c:when>
     <c:otherwise><div id="userName">
     <span>Hello, </span>
-    <c:out value="${user.firstName}"/>
+    <c:out value="${currentUser.firstName}"/>
     <a href="/logout">Logout</a>
     </div>
     <%-- <span>Hello, </span>
