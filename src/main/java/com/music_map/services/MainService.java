@@ -1,22 +1,36 @@
 package com.music_map.services;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.music_map.exceptions.StorageException;
+import com.music_map.exceptions.StorageFileNotFoundException;
+import com.music_map.models.ProfilePic;
 import com.music_map.models.Review;
 import com.music_map.models.User;
+import com.music_map.repositories.ProfilePicRepository;
 import com.music_map.repositories.UserRepository;
 
 @Service
 public class MainService {
-
-	@Autowired
 	UserRepository userRepository;
+	ProfilePicRepository profilePicRepository;
 	
+
+	public MainService(UserRepository userRepository, ProfilePicRepository profilePicRepository) {
+		this.userRepository = userRepository;
+		this.profilePicRepository = profilePicRepository;
+	}
+
 	public User registerUser(User user) {
 		String hashed = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
 		user.setPassword(hashed);
@@ -35,9 +49,9 @@ public class MainService {
 			return null;
 		}
 	}
-	public List<Review> getUserReviews(User u){
+
+	public List<Review> getUserReviews(User u) {
 		return u.getReviews();
-		
 	}
 
 	public boolean authenticateUser(String email, String password) {
@@ -52,7 +66,36 @@ public class MainService {
 			}
 		}
 	}
+
+	// UPLOAD FILE
+	public ProfilePic storeFile(User u, MultipartFile file) {
+	        // Normalize file name
+	        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+
+	        try {
+	            // Check if the file's name contains invalid characters
+	            if(fileName.contains("..")) {
+	                throw new StorageException("Sorry! Filename contains invalid path sequence " + fileName);
+	            }
+
+	            System.out.println("FILE" + fileName + "\n TYPE" + file.getContentType()+ "\n BYTES"+ file.getBytes());
+	            ProfilePic dbFile = new ProfilePic(fileName, file.getContentType(), file.getBytes(), u);
+	            ProfilePic p = profilePicRepository.save(dbFile);
+
+	            return p;
+	        } catch (IOException ex) {
+	            throw new StorageException("Could not store file " + fileName + ". Please try again!", ex);
+	        }
+	}
 	
 	
-	
+
+	public ProfilePic getPic(String fileId) {
+		return profilePicRepository.findById(fileId)
+				.orElseThrow(() -> new StorageFileNotFoundException("File not found with id " + fileId));
+	}
+	public ProfilePic savePic(ProfilePic p) {
+		return profilePicRepository.save(p);
+	}
+
 }

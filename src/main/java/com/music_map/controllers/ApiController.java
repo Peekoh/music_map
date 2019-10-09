@@ -5,6 +5,11 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,8 +19,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.music_map.models.*;
+import com.music_map.models.ProfilePic;
+import com.music_map.models.Review;
+import com.music_map.models.User;
+import com.music_map.payload.UploadFileResponse;
 import com.music_map.services.ApiService;
 import com.music_map.services.MainService;
 import com.music_map.services.ReviewService;
@@ -28,6 +39,7 @@ public class ApiController {
 	ApiService api = new ApiService();
 	public final ReviewService reviewService;
 	public final MainService mainService;
+
 	public ApiController(ApiService api, ReviewService reviewService, MainService mainService) {
 		this.reviewService = reviewService;
 		this.mainService = mainService;
@@ -117,13 +129,53 @@ public class ApiController {
 		} else {
 			model.addAttribute("currentUser", null);
 		}
-		//gets user of profile
+		System.out.println();
+		// gets user of profile
 		User viewedUser = mainService.findUserById(viewId);
+		ProfilePic p = mainService.getPic(viewedUser.getProfilePic().getId());
+		model.addAttribute("pic", p.getFileName());
 		model.addAttribute("viewedUser", viewedUser);
-		//get artists that are reviewed
+	//	ProfilePic p = viewedUser.getProfilePic();
+		// model.addAttribute("pic", p.getUri());
+		// get artists that are reviewed
 		List<Review> reviews = mainService.getUserReviews(viewedUser);
 		List<Artist> reviewedArtists = api.findReviewArtists(reviews);
 		model.addAttribute("reviewedArtists", reviewedArtists);
 		return "viewUser.jsp";
 	}
+
+	// upload file
+	@PostMapping("/upload")
+	public String uploadFile(@RequestParam("file") MultipartFile file, HttpSession session) {
+		Long userId = (Long) session.getAttribute("userId");
+		User user = mainService.findUserById(userId);
+		ProfilePic dbFile = mainService.storeFile(user, file);
+		System.out.println("FILE" + dbFile.getData());
+		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/download/")
+				.path(dbFile.getId()).toUriString();
+		new UploadFileResponse(dbFile.getFileName(), fileDownloadUri, file.getContentType(), file.getSize(), user);
+		// mainService.savePic(dbFile);
+
+		// DOWNLOAD FILE
+		
+		 ResponseEntity.ok().contentType(MediaType.parseMediaType(dbFile.getFileType()
+		  )) .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" +
+		  dbFile.getFileName() + "\"") .body(new ByteArrayResource(dbFile.getData()));
+		  System.out.println("test");
+		 
+
+		return "redirect:/user/" + userId + "";
+	}
+
+	// Load file from database
+
+	//@GetMapping("/download/{fileId}")
+//	@ResponseBody
+/*	public ResponseEntity<Resource> downloadFile(@PathVariable("fileId") String fileId) {
+		ProfilePic dbFile = mainService.getPic(fileId);
+		return ResponseEntity.ok().contentType(MediaType.parseMediaType(dbFile.getFileType()))
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + dbFile.getFileName() + "\"")
+				.body(new ByteArrayResource(dbFile.getData()));
+	}*/
+
 }
