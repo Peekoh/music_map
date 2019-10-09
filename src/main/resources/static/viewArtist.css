@@ -1,5 +1,10 @@
 @charset "UTF-8";
 @import 'http://geo-gvnix.rhcloud.com/resources/styles/standard.css';
+
+
+body {
+	background-color: black;
+}
   .navbar.navbar-default.navbar-fixed-top{
   margin-top: 50px;
   }
@@ -372,13 +377,13 @@ footer {
 } */
 
 /* Make the image to responsive */
-.image {
+/* .image {
   display: block;
   width: 200px;
   height: 200px;
   z-index: 10000;
   border-radius: 50%;
-}
+} */
 
 /* The overlay effect - lays on top of the container and over the image */
 /* .overlay {
@@ -401,19 +406,17 @@ footer {
   opacity: 1;
 } */
 
-body {
-	background-color: black;
-}
+
 .card {
     float: left;
-    width: 25.333%;
+    width: 24.333%;
     padding: .75rem;
-    margin-bottom: 2rem;
+    /* margin-bottom: 2rem; */
     border: 0;
     background-color: black;
 }
 .card {
-	margin-left: 7.7%;
+	margin-left: 5.7%; 
     position: relative;
     display: -webkit-box;
     display: -webkit-flex;
@@ -439,6 +442,11 @@ body {
         width: 1140px;
         max-width: 100%;
     }
+}
+
+
+.artistImg {
+	margin-left: 20%;
 }
 /* @media (min-width: 992px) {
     .container {
@@ -495,15 +503,36 @@ body {
     padding-right: 15px;
     padding-left: 15px;
 }
+/* .one-word-per-line {
+    word-spacing: 10000px; 
+}  */
+p{
+	margin-bottom:0px;
+	margin-right: 25%;
+	text-align: center;	
+	font-size: 10px;
+ /*   width: min-intrinsic;
+   width: -webkit-min-content;
+   width: -moz-min-content;
+   width: min-content;
+   display: table-caption;
+   display: -ms-grid;
+   -ms-grid-columns: min-content; */
+   /* word-break: break-all; */
+   
+ }
 
- h3 {
+ /* p {
  	margin-right: 25%;
  	text-align: center;
- }
- .viewExplore {
- 	margin-right: 25%;
- 	text-align: center;
- }
+ 	ms-word-break: break-all;
+    word-break: break-all;
+    word-break: break-word;
+    overflow:hidden; 
+    white-space: nowrap;
+    text-overflow: ellipsis;
+ } */
+
 
  .search{
   top: 0;
@@ -521,7 +550,17 @@ input.transparent-input{
     background-color:transparent !important;
     border:none !important;
  }
+ h1.name {
+ 	text-align: center;
+ 	font-size: 40px;
+ 	color:white;
+ 	margin-bottom: 4%;
+ }
+ 
+ h2 {
+ 	text-align: center;
+ }
 
-
-
-
+h5  {
+	text-align: center;
+}

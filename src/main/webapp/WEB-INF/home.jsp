@@ -30,8 +30,6 @@
     <c:out value="${currentUser.firstName}"/>
     <a href="/logout">Logout</a>
     </div>
-    <%-- <span>Hello, </span>
-    <c:out value="${user.firstName}"/> --%>
     </c:otherwise>
     </c:choose>
         
