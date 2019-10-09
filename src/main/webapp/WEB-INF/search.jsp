@@ -33,20 +33,39 @@
 			<input type="submit" value="Register" />
 		</form>
 	</header> --%>
-	
+	 
 	<nav class="navbar navbar-inverse sidebar navbar-fixed-top" role="navigation">
             <div class="nav-side-menu">
                 <div class="brand">Music Map</div>
                 <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
                 <div class="menu-list" style="margin-left: 10px;">
+                 <li data-toggle="collapse" data-target="#user" >
+                        <a href="/">
+                            <i class="fa fa-home"></i>
+                          	Home
+                          	  
+                        </a>
+                    </li>
+                     <li data-toggle="collapse" data-target="#user" >
+                        
+                          
+                          <form action="/search" class="search-form" method="get">
+                        <div class="search">
+                                <!-- <i class="fa fa-search" aria-hidden="true"></i> -->
+                      				<input class="form-control transparent-input form-control-sm ml-3 w-75" type="text" placeholder="Search Artist..."
+                                  	 name ="search" aria-label="Search">
+                                  	 </div>
+                    </form>
+                          	  
+                        
+                    </li>
+                <c:choose>
+					<c:when test="${currentUser != null }">
                     <ul id="menu-content" class="menu-content collapse out">
                         <li data-toggle="collapse" data-target="#service" class="collapsed">
                             <a href="#">
-
-                                <!-- <i class="fa fa-user fa-lg"></i> Logout
-                                <span class="arrow"></span> -->
-
-                                <i class="fa fa-user fa-lg"></i> Logout 
+								
+                                <i class="fa fa-sign-out fa-lg"></i> Logout 
                                 <span class="arrow"></span>
 
                             </a>
@@ -62,6 +81,8 @@
                              
                             </ul>
                         </ul>
+                        </c:when>
+                        </c:choose>
                       <!--   <li data-toggle="collapse" data-target="#new" class="collapsed">
                             <a href="#">
                                 <i class="fa fa-music fa-lg"></i> Genre
@@ -101,37 +122,44 @@
                             <a href="#" class="team">Jazz</a>
                         </li>
                     </ul>
+                    <c:choose>
+                    <c:when test="${currentUser != null}">
                      <li data-toggle="collapse" data-target="#user" >
                         <a href="/user">
                             <i class="fa fa-user"></i>
-                          
-                            <c:out value="${user.firstName}"/>
-                            
+                          	Welcome, 
+                          	<c:out value="${currentUser.firstName}"/>
+                          	  
                         </a>
                     </li>
-                    </a>
-                    </li>
+                    </c:when>
+                    </c:choose>
+                    
                 </div>
             </div>
 
             <div class="main">
             </div>
-    </div>
+   
     </nav>
-	<h1>
-		Results for
-		<c:out value="${search}" />
-	</h1>
 <!-- TEST -->
 <!-- TEST -->
-	<c:forEach items="${results.items}" var="result">
-		<h2>
-			<c:out value="${result.name}" />
-		</h2>
-		
-		<img src="${result.images[0].url}" alt="" width="100px;" />
-	<a href="/view/${result.id}">View</a>
-	<a href="/explore/${result.id}">Explore</a>
-	</c:forEach>
+<div class="album text-muted">
+          <div class="container">
+    
+            <div class="row">
+              <c:forEach items="${results.items}" var="result">
+	              <div class="card">
+	                <img src="${result.images[0].url}" alt="artist-pic" class="image"/>
+	                <h3 class="card-text"><c:out value="${result.name }"/></h3>
+	                <div class="viewExplore"><a href="/view/${result.id}">View</a>
+					<a href="/explore/${result.id}">| Explore</a></div>
+	              </div>
+              </c:forEach> 
+            </div>
+    
+          </div>
+        </div>
+	
 </body>
 </html>
