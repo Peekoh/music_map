@@ -1,4 +1,5 @@
 package com.music_map.controllers;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -8,12 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.music_map.models.User;
 import com.music_map.services.MainService;
@@ -85,4 +83,12 @@ public class MainController {
 			return "login.jsp";
 		}
 	}
+	
+	@RequestMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
+	}
+
+
 }
