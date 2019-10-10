@@ -144,12 +144,13 @@ public class ApiController {
 		}
 		// gets user of profile
 		User viewedUser = mainService.findUserById(viewId);
-//		ProfilePic p = mainService.getPic(viewedUser.getProfilePic().getId());
-//		model.addAttribute("pic", p.getFileName());
 		model.addAttribute("viewedUser", viewedUser);
-		// ProfilePic p = viewedUser.getProfilePic();
-		// model.addAttribute("pic", p.getUri());
-		// get artists that are reviewed
+		
+		//get history
+		List<Artist> history = api.getHistory(viewedUser);
+		model.addAttribute("history", history);
+		
+		//get reviews
 		List<Review> reviews = mainService.getUserReviews(viewedUser);
 		List<Artist> reviewedArtists = api.findReviewArtists(reviews);
 		model.addAttribute("reviewedArtists", reviewedArtists);

@@ -2,6 +2,7 @@ package com.music_map.services;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
@@ -28,7 +29,7 @@ import com.wrapper.spotify.requests.data.search.simplified.SearchArtistsRequest;
 @Service
 public class ApiService {
 
-	//private final ReviewRepository reviewRepo;
+	// private final ReviewRepository reviewRepo;
 
 	// CREATE API OBJECT
 	private static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
@@ -96,9 +97,9 @@ public class ApiService {
 		final GetArtistsRelatedArtistsRequest getRelated = spotifyApi.getArtistsRelatedArtists(id).build();
 		try {
 			final Artist[] artists = getRelated.execute();
-		//	Artist[] limitedArtists = artists;
-			Artist[] limited =  new Artist[10];
-			for(int i = 0; i < 10; i++) {
+			// Artist[] limitedArtists = artists;
+			Artist[] limited = new Artist[10];
+			for (int i = 0; i < 10; i++) {
 				limited[i] = artists[i];
 			}
 			System.out.println("ARTISTS" + limited);
@@ -108,10 +109,11 @@ public class ApiService {
 			return null;
 		}
 	}
-	//GET ARTISTS OF REVIEWS
-	public List<Artist> findReviewArtists(List<Review> r ){
+
+	// GET ARTISTS OF REVIEWS
+	public List<Artist> findReviewArtists(List<Review> r) {
 		List<Artist> reviewedArtists = new ArrayList<>();
-		for(int i = 0; i < r.size(); i++) {
+		for (int i = 0; i < r.size(); i++) {
 			String artistId = r.get(i).getArtistId();
 			final GetArtistRequest getArtistRequest = spotifyApi.getArtist(artistId).build();
 			try {
@@ -124,17 +126,36 @@ public class ApiService {
 		}
 		return reviewedArtists;
 	}
-	
-	//GRAB ARTIST HISTORY FROM API
-	/*
-	 * public List<History> getHistory(User u){ List<History> hl = u.getHistory();
-	 * List<Artist> al = new ArrayList<>(); for(int i = 0 ; i < hl.size(); i ++) {
-	 * String id = hl.get(i).getArtistId(); final GetArtistRequest getArtistRequest
-	 * = spotifyApi.getArtist(id).build(); try { final Artist artist =
-	 * getArtistRequest.execute();
-	 * 
-	 * } catch (IOException | SpotifyWebApiException e) {
-	 * System.out.println("ERROR: " + e.getMessage()); } return null; } }
-	 * 
-	 */
+
+	// GRAB ARTIST HISTORY FROM API
+
+	public List<Artist> getHistory(User u) {
+		List<History> hl = u.getHistory();
+		List<Artist> al = new ArrayList<>();
+		if (hl.size() <= 5) {
+			for (int i = 0; i < hl.size(); i++) {
+				String id = hl.get(i).getArtistId();
+				final GetArtistRequest getArtistRequest = spotifyApi.getArtist(id).build();
+				try {
+					final Artist artist = getArtistRequest.execute();
+						al.add(artist);
+					
+				} catch (IOException | SpotifyWebApiException e) {
+				}
+			}
+		} else {
+			for (int i = 0; i < 5; i++) {
+				String id = hl.get(i).getArtistId();
+				final GetArtistRequest getArtistRequest = spotifyApi.getArtist(id).build();
+				try {
+					final Artist artist = getArtistRequest.execute();
+						al.add(artist);
+				} catch (IOException | SpotifyWebApiException e) {
+				}
+			}
+		}
+		Collections.reverse(al);
+		return al;
+	}
+
 }
