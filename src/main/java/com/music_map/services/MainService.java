@@ -24,9 +24,6 @@ public class MainService {
 	UserRepository userRepository;
 	ProfilePicRepository profilePicRepository;
 	HistoryRepository historyRepository;
-	
-
-
 
 	public MainService(UserRepository userRepository, ProfilePicRepository profilePicRepository,
 			HistoryRepository historyRepository) {
@@ -73,35 +70,45 @@ public class MainService {
 
 	// UPLOAD FILE
 	public ProfilePic storeFile(User u, MultipartFile file) {
-	        // Normalize file name
-	        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+		// Normalize file name
+		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
-	        try {
-	            // Check if the file's name contains invalid characters
-	            if(fileName.contains("..")) {
-	                throw new StorageException("Sorry! Filename contains invalid path sequence " + fileName);
-	            }
+		try {
+			// Check if the file's name contains invalid characters
+			if (fileName.contains("..")) {
+				throw new StorageException("Sorry! Filename contains invalid path sequence " + fileName);
+			}
 
-	            System.out.println("FILE" + fileName + "\n TYPE" + file.getContentType()+ "\n BYTES"+ file.getBytes());
-	            ProfilePic dbFile = new ProfilePic(fileName, file.getContentType(), file.getBytes(), u);
-	            ProfilePic p = profilePicRepository.save(dbFile);
+			System.out.println("FILE" + fileName + "\n TYPE" + file.getContentType() + "\n BYTES" + file.getBytes());
+			ProfilePic dbFile = new ProfilePic(fileName, file.getContentType(), file.getBytes(), u);
+			ProfilePic p = profilePicRepository.save(dbFile);
 
-	            return p;
-	        } catch (IOException ex) {
-	            throw new StorageException("Could not store file " + fileName + ". Please try again!", ex);
-	        }
+			return p;
+		} catch (IOException ex) {
+			throw new StorageException("Could not store file " + fileName + ". Please try again!", ex);
+		}
 	}
-	//ADD TO HISTORY
-	public void addHistory(String id, User u){
-		//List<History> hl = u.getHistory();
+
+	// ADD TO HISTORY
+	public void addHistory(String id, User u) {
 		History h = new History();
 		h.setArtistId(id);
 		h.setUser(u);
-		//hl.add(h);
+		List<History> hl = u.getHistory();
+		for (int i = 0; i < hl.size(); i++) {
+			System.out.println(hl.get(i).getArtistId());
+			System.out.println(h.getArtistId());
+
+			if (h.getArtistId().equals(hl.get(i).getArtistId())) {
+			//historyRepository.save(hl.get(i));
+			System.out.println("ALREADY VIEWED");
+			return;
+			}
+		}
+		// hl.add(h);
 		historyRepository.save(h);
 		return;
 	}
-
 
 	/*
 	 * public ProfilePic getPic(String fileId) { return
@@ -109,9 +116,5 @@ public class MainService {
 	 * StorageFileNotFoundException("File not found with id " + fileId)); } public
 	 * ProfilePic savePic(ProfilePic p) { return profilePicRepository.save(p); }
 	 */
-	
-	
-	
-	
 
 }

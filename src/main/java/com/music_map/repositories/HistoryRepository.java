@@ -8,5 +8,5 @@ import com.music_map.models.History;
 import com.music_map.models.User;
 
 public interface HistoryRepository extends CrudRepository<History, Long>{
-List<History> findLast10ByUser(User u);
+List<History> findLast5ByUser(User u);
 }
