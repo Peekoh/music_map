@@ -2,22 +2,27 @@
 
 .navbar {
   overflow: hidden;
-  background-color: #333;
+  background-color:rgba(0,0,0,0.2);
   width: 100%;
-  border-radius: 0px !important; 
+  border-radius: 0px !important;
+  margin-bottom: 0px; 
 }
 
-#userName {
+.userName {
 	color: white;
+	margin-top: 0.5%;
+ display: inline-flex;
+ margin-left: 3%;
 }
 
 .navbar a {
-  float: left;
+  
   font-size: 16px;
   color: white;
   text-align: center;
-  padding: 14px 16px;
+  
   text-decoration: none;
+  margin-left: 2%;
 }
 
 .dropdown {
@@ -36,10 +41,10 @@
   margin: 0;
 }
 
-.navbar a:hover,
+/* .navbar a:hover,
 .dropdown:hover .dropbtn {
   background-color: red;
-}
+} */
 
 .dropdown-content {
   display: none;
@@ -113,3 +118,31 @@ input.transparent-input{
     background-color:transparent !important;
     border:none !important;
  }
+ 
+ .homeLogin {
+ margin-top: 0.5%;
+ display: inline-flex;
+ margin-left: 2%;
+ }
+ 
+ .homeLogout {
+ 	display: inline-flex;
+ 	margin-left: 3%;
+ }
+ 
+ 
+ .homeReg {
+ 	display: inline-flex;
+ 	margin-left: 2%;
+ }
+ 
+ .fa {
+ margin-left: 5%;
+ margin-top: 4%;
+ }
+ 
+ .musicMap {
+ 	margin-left: 75%;
+ 	
+ }
+

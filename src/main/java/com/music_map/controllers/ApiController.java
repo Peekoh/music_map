@@ -132,9 +132,9 @@ public class ApiController {
 		System.out.println();
 		// gets user of profile
 		User viewedUser = mainService.findUserById(viewId);
-		ProfilePic p = mainService.getPic(viewedUser.getProfilePic().getId());
-		model.addAttribute("pic", p.getFileName());
-		model.addAttribute("viewedUser", viewedUser);
+//		ProfilePic p = mainService.getPic(viewedUser.getProfilePic().getId());
+//		model.addAttribute("pic", p.getFileName());
+//		model.addAttribute("viewedUser", viewedUser);
 	//	ProfilePic p = viewedUser.getProfilePic();
 		// model.addAttribute("pic", p.getUri());
 		// get artists that are reviewed

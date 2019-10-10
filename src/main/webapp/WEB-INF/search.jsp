@@ -125,7 +125,7 @@
                     <c:choose>
                     <c:when test="${currentUser != null}">
                      <li data-toggle="collapse" data-target="#user" >
-                        <a href="/user">
+                        <a href="/user/${currentUser.id }">
                             <i class="fa fa-user"></i>
                           	Welcome, 
                           	<c:out value="${currentUser.firstName}"/>

@@ -39,20 +39,7 @@
 	<div class="navbar">
         <a href="/">Home</a>
         <a href="/register">Register</a>
-        	<div class="dropdown">
-            	<button class="dropbtn">Genre Music
-                    <i class="fa fa-caret-down"></i>
-                </button>
-                  <div class="dropdown-content">
-                    <a href="#">Country</a>
-                    <a href="#">Rock</a>
-                    <a href="#">Jazz</a>
-                    <a href="#">Hip Hop</a>
-                    <a href="#">Blues</a>
-                    <a href="#">Heavy Metal</a>
-                    <a href="#">Pop</a>
-                  </div>
-                </div> 
+        	<img class="musicMap" src="musicmap1.png" alt="" width="150px" height="100px">
               </div>
 
 	<div class="page-wrapper bg-gra-01 p-t-180 p-b-100 font-poppins">

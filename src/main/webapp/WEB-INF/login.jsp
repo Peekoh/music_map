@@ -21,22 +21,9 @@
 </head>
 <body>
 	<div class="navbar">
-        <a href="/">Home</a>
-        <a href="/register">Register</a>
-        	<div class="dropdown">
-            	<button class="dropbtn">Genre Music
-                    <i class="fa fa-caret-down"></i>
-                </button>
-                  <div class="dropdown-content">
-                    <a href="#">Country</a>
-                    <a href="#">Rock</a>
-                    <a href="#">Jazz</a>
-                    <a href="#">Hip Hop</a>
-                    <a href="#">Blues</a>
-                    <a href="#">Heavy Metal</a>
-                    <a href="#">Pop</a>
-                  </div>
-                </div> 
+        <a class="homeLogin" href="/">Home</a>
+        <a  class="homeReg" href="/register">Register</a>
+        	 <img class="musicMap" src="musicmap1.png" alt="" width="150px" height="100px">
               </div>
 	<p>
 		<form:errors path="user.*" />

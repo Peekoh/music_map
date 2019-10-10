@@ -22,31 +22,18 @@
 	
 	 <c:choose>
     <c:when test="${currentUser == null}">
-        <a href="/login">Login</a>
-        <a href="/register">Register</a>
+        <div class="homeLogin"><a href="/login">Login</a></div>
+        <div class="homeReg"><a href="/register">Register</a></div>
     </c:when>
-    <c:otherwise><div id="userName">
-    <span>Hello, </span>
-    <c:out value="${currentUser.firstName}"/>
-    <a href="/logout">Logout</a>
+    <c:otherwise><div class="userName">
+    <!-- <span>Hello</span> --> <a href="/user/${currentUser.id }"><c:out value="${currentUser.firstName} ${currentUser.lastName }"/></a>
     </div>
+     <a class="homeLogout" href="/logout">Logout</a>
     </c:otherwise>
     </c:choose>
+    <img class="musicMap" src="musicmap1.png" alt="" width="150px" height="100px">
         
-        	<div class="dropdown">
-            	<button class="dropbtn">Genre Music
-                    <i class="fa fa-caret-down"></i>
-                </button>
-                  <div class="dropdown-content">
-                    <a href="#">Country</a>
-                    <a href="#">Rock</a>
-                    <a href="#">Jazz</a>
-                    <a href="#">Hip Hop</a>
-                    <a href="#">Blues</a>
-                    <a href="#">Heavy Metal</a>
-                    <a href="#">Pop</a>
-                  </div>
-                </div> 
+        
               </div>
               <video id="myVideo"  autoplay loop muted playsinline>
                     <source id="mp4" src="Live-Music.mp4" type="video/mp4">
