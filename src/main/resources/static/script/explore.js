@@ -1,17 +1,27 @@
-
 $(function(){
-	let id = "5H0YoDsPDi9fObFmJtTjfN";
- console.log("id: " + id);
+	let url = location.pathname.split('/');
+	let id = url[2];
  grabRelated(id); 
 })
-	
-	
 	function grabRelated(id){
 	$.ajax({
-		  method: "GET",
-		  url: "/artist/api/"+id+"",
-		  contentType:false,
-		  success: function( data ) {
+		method:"get",
+		url:"/api/artist/"+id+"",
+		  dataType:"json",
+		success: function(data){
+			artist = data;
+			console.log(artist);
+		},
+		error: function(err){
+			console.log(err);
+		}
+	}),
+	$.ajax({
+		  method: "get",
+		  url: "/api/"+id+"",
+		 // contentType:false,
+		  dataType:"json",
+		  success: function(data) {
 			  let related = data;
 			  console.log(related);
 			  let length = related.length;
@@ -29,9 +39,9 @@ $(function(){
 			  }
 			  let treeData = [
 					{		
-					"name":"tempname",
-					"id":"5H0YoDsPDi9fObFmJtTjfN",
-					  "pic":related[0].images[0].url,
+					"name":artist.name,
+					"id":artist.id,
+					  "pic":artist.images[0].url,
 
 					"value": 100,
 					"level":"green",
@@ -43,8 +53,8 @@ $(function(){
 			  drawChart(treeData);
 			  return;
 			  },
-			  error: function(e){
-				  console.log("error"+e);
+			  error: function(err){
+				  console.log(err);
 			  }
 		  });
 	}
@@ -53,7 +63,7 @@ $(function(){
 		console.log(treeData);
 		const margin = {top: 20, right: 90, bottom: 30, left: 90},
 	      width  = 900 - margin.left - margin.right,
-	      height = 1400 - margin.top - margin.bottom;
+	      height = 1800 - margin.top - margin.bottom;
 
 	// declares a tree layout and assigns the size
 	const treemap = d3.tree().size([height, width]);
@@ -67,7 +77,7 @@ $(function(){
 	// append the svg object to the body of the page
 	// appends a 'group' element to 'svg'
 	// moves the 'group' element to the top left margin
-	const svg = d3.select("body").append("svg")
+	const svg = d3.select("#explore").append("svg")
 	        .attr("width", width + margin.left + margin.right)
 	        .attr("height", height + margin.top + margin.bottom),
 	      g = svg.append("g")
@@ -93,42 +103,41 @@ $(function(){
 	    .enter().append("g")
 	    .attr("class", d => "node" + (d.children ? " node--internal" : " node--leaf"))
 	    .attr("transform", d => "translate(" + d.y + "," + d.x + ")")
-		.style("width", "rotate(270deg)")
+		//.style("width", "rotate(270deg)")
 	.attr("width", d => d.data.value *5)
 	.attr("height", d => d.data.value *5);
 		
 	node.append("defs")
-	.append("defs:clipPath")
-	.attr("id", "circleView")
-	// .style("border-radius", "5px")
-	.append("clipPath:circle")
-	.attr("r", d => d.data.value*3)
-	.style("width", "auto")
-		.style("height", "auto")
-
-
-	node.append("image")
-	// attr("width", "50")
+	.append("defs:filter")
+	.attr("id", d => "circleView"+d.data.id+"")
+	.append("filter:feImage")
 	.attr("xlink:href", d => d.data.pic)
-		.style("width", "auto")
-		.style("height", "auto")
-		// .attr("object-fit", "cover")
-		// .style("transform", "rotate(270deg)")
-		.attr("clip-path", "url(#circleView)")
+	
+	node.append("a")
+	.attr("href", d=> "/explore/" + d.data.id)
+	.append("a:circle")
+	.attr("r", d => d.data.value*3)
+	//.attr("fill", d => "url(#circleView)")
+	.attr("filter", d => "url(#circleView"+d.data.id+")")
+	.attr("width", d => d.data.value *5)
+	.attr("height", d => d.data.value *5);
+
+
+
+
 	
 	// node.append("img:circle")
 	  // .attr("r", d => d.data.value)
 	  // .style("stroke", d => d.data.level)
-	  	 .attr("fill", d => "url(#img)")
 	  // .attr("filter",d => "url("+d.data.pic+")" )
 	 	// .attr("r", d => d.data.value)
 	  
 	// adds the text to the node
-/*
- * node.append("text") .attr("dy", ".35em") .attr("x", d => d.data.value + 5)
- * .attr("y", d => d.data.value + 5) .style("text-anchor", d => d.children ?
- * "end" : "start") .text(d => d.data.name);
- */
+
+  node.append("text") .attr("dy", ".35em") .attr("x", d => d.data.value + 5)
+  .attr("y", d => d.data.value + 5) .style("text-anchor", d => d.children ?
+  "end" : "start") .text(d => d.data.name);
+ 
 	
 	
 	}

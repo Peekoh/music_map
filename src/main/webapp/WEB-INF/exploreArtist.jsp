@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://d3js.org/d3.v5.min.js"></script>
+	<script src="\script\explore.js"></script>
 	
 
 <meta charset="UTF-8">
@@ -22,14 +23,22 @@
 <style>
 svg {
 transform:rotate(90deg);
+margin:auto;
+display:block;
 }
 image{
-object-fit:contain;
+
 }
 .node circle {
   fill: #fff;
   stroke: steelblue;
   stroke-width: 3px;
+  transform:rotate(270deg);
+  
+}
+filter{
+width:100%;
+height:100%;
 }
 
 .node text { font: 16px sans-serif; }
@@ -39,18 +48,20 @@ object-fit:contain;
   stroke: #ccc;
   stroke-width: 2px;
 }
+#explore{
+margin-left:;
+
+}
 </style>
 <body>
-<header>
+
 
 	<h1>
 		<c:out value="${artist.name}" />
 	</h1>
-	<span th:text="${artist.id}"></span> 
-	<img src="${artist.images[0].url}" alt="artist-img" id="main-artist" />
-	<div id="explore">stuff</div>
-	<div id"></div>
+	<a href="/view/${artist.id}">View Artist</a>
 
+<div id="explore"></div>
 <%-- 	<c:forEach items="${relatedArtists}" var="r">
 		<div>
 			<c:out value="${r.name}" />
@@ -60,6 +71,5 @@ object-fit:contain;
 			<a href="/explore/${r.id}">Explore</a>
 		</div>
 	</c:forEach> --%>
-	<script src="\script\explore.js"></script>
 </body>
 </html>
