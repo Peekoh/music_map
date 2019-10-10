@@ -118,7 +118,6 @@
 	</h1>
 	<img class="artistImg" src="${artist.images[0].url}" alt="artist-pic"
 		width=55% height=500px />
-		<a href="${artist.externalUrls.externalUrls.spotify}">Listen on Spotify</a>
 	<div class="album text-muted">
 		<div class="container">
 			<div class="row">
