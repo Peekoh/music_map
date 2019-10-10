@@ -39,12 +39,6 @@ public class MainController {
 		}
 		return "home.jsp";
 	}
-
-	/* VIEW PROFILE */
-	@RequestMapping("/profile/{id}")
-	public String viewProfile(Model model, @PathVariable("id") Long id, HttpSession session) {
-		return "profile.jsp";
-	}
 	
 	/* VIEW REGISTRATION */
 	@RequestMapping("/register")

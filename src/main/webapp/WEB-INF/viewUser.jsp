@@ -195,7 +195,7 @@
                 </h3>
                 <ul class="user-menu-list">
                     <li>
-                        <h4><i class="fa fa-user coral"></i> Rihanna</h4>
+                        <h4><i class="fa fa-user coral"></i> ${viewedUser.history[0].artistId}</h4>
                     </li>
                     <li>
                         <h4><i class="fa fa-heart-o coral"></i> Drake</h4>

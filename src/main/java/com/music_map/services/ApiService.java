@@ -9,8 +9,9 @@ import java.util.concurrent.CompletionException;
 
 import org.springframework.stereotype.Service;
 
+import com.music_map.models.History;
 import com.music_map.models.Review;
-import com.music_map.repositories.ReviewRepository;
+import com.music_map.models.User;
 //import com.music_map.services.*;
 import com.wrapper.spotify.SpotifyApi;
 import com.wrapper.spotify.exceptions.SpotifyWebApiException;
@@ -95,8 +96,13 @@ public class ApiService {
 		final GetArtistsRelatedArtistsRequest getRelated = spotifyApi.getArtistsRelatedArtists(id).build();
 		try {
 			final Artist[] artists = getRelated.execute();
-			System.out.println("ARTISTS" + artists);
-			return artists;
+		//	Artist[] limitedArtists = artists;
+			Artist[] limited =  new Artist[10];
+			for(int i = 0; i < 10; i++) {
+				limited[i] = artists[i];
+			}
+			System.out.println("ARTISTS" + limited);
+			return limited;
 		} catch (IOException | SpotifyWebApiException e) {
 			System.out.println("ERROR: " + e.getMessage());
 			return null;
@@ -118,5 +124,17 @@ public class ApiService {
 		}
 		return reviewedArtists;
 	}
-
+	
+	//GRAB ARTIST HISTORY FROM API
+	/*
+	 * public List<History> getHistory(User u){ List<History> hl = u.getHistory();
+	 * List<Artist> al = new ArrayList<>(); for(int i = 0 ; i < hl.size(); i ++) {
+	 * String id = hl.get(i).getArtistId(); final GetArtistRequest getArtistRequest
+	 * = spotifyApi.getArtist(id).build(); try { final Artist artist =
+	 * getArtistRequest.execute();
+	 * 
+	 * } catch (IOException | SpotifyWebApiException e) {
+	 * System.out.println("ERROR: " + e.getMessage()); } return null; } }
+	 * 
+	 */
 }

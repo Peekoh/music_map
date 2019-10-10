@@ -1,22 +1,21 @@
 package com.music_map.services;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
 import org.mindrot.jbcrypt.BCrypt;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.music_map.exceptions.StorageException;
 import com.music_map.exceptions.StorageFileNotFoundException;
+import com.music_map.models.History;
 import com.music_map.models.ProfilePic;
 import com.music_map.models.Review;
 import com.music_map.models.User;
+import com.music_map.repositories.HistoryRepository;
 import com.music_map.repositories.ProfilePicRepository;
 import com.music_map.repositories.UserRepository;
 
@@ -24,11 +23,16 @@ import com.music_map.repositories.UserRepository;
 public class MainService {
 	UserRepository userRepository;
 	ProfilePicRepository profilePicRepository;
+	HistoryRepository historyRepository;
 	
 
-	public MainService(UserRepository userRepository, ProfilePicRepository profilePicRepository) {
+
+
+	public MainService(UserRepository userRepository, ProfilePicRepository profilePicRepository,
+			HistoryRepository historyRepository) {
 		this.userRepository = userRepository;
 		this.profilePicRepository = profilePicRepository;
+		this.historyRepository = historyRepository;
 	}
 
 	public User registerUser(User user) {
@@ -87,15 +91,27 @@ public class MainService {
 	            throw new StorageException("Could not store file " + fileName + ". Please try again!", ex);
 	        }
 	}
-	
-	
+	//ADD TO HISTORY
+	public void addHistory(String id, User u){
+		//List<History> hl = u.getHistory();
+		History h = new History();
+		h.setArtistId(id);
+		h.setUser(u);
+		//hl.add(h);
+		historyRepository.save(h);
+		return;
+	}
 
-	public ProfilePic getPic(String fileId) {
-		return profilePicRepository.findById(fileId)
-				.orElseThrow(() -> new StorageFileNotFoundException("File not found with id " + fileId));
-	}
-	public ProfilePic savePic(ProfilePic p) {
-		return profilePicRepository.save(p);
-	}
+
+	/*
+	 * public ProfilePic getPic(String fileId) { return
+	 * profilePicRepository.findById(fileId) .orElseThrow(() -> new
+	 * StorageFileNotFoundException("File not found with id " + fileId)); } public
+	 * ProfilePic savePic(ProfilePic p) { return profilePicRepository.save(p); }
+	 */
+	
+	
+	
+	
 
 }
