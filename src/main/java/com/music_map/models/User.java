@@ -50,10 +50,26 @@ public class User {
 	 @OneToOne(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	    private ProfilePic profilePic;
 	 
+	 @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+	 private List<History> history;
+	 
 	public User() {
 
 	}
 	
+
+
+	public List<History> getHistory() {
+		return history;
+	}
+
+
+
+	public void setHistory(List<History> history) {
+		this.history = history;
+	}
+
+
 
 	public ProfilePic getProfilePic() {
 		return profilePic;
