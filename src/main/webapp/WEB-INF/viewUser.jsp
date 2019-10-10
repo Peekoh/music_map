@@ -32,7 +32,7 @@
 <meta charset="UTF-8">
 </head>
 <body>
-<%-- <nav class="navbar navbar-inverse sidebar navbar-fixed-top" role="navigation">
+ <nav class="navbar navbar-inverse sidebar navbar-fixed-top" role="navigation">
             <div class="nav-side-menu">
                 <div class="brand">Music Map</div>
                 <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
@@ -137,8 +137,8 @@
             <div class="main">
             </div>
    
-    </nav> --%>
-<%-- <div class="container">
+    </nav> 
+ <div class="container">
     <div class="row user-menu-container square">
         <div class="col-md-7 user-details">
             <div class="row coralbg white">
@@ -288,7 +288,7 @@
             </div>
         </div>
     </div>
-</div> --%>
+</div> 
 
 	<div class="reviewUser">
 	<h1>

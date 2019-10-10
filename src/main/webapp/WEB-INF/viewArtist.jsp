@@ -153,18 +153,21 @@
 					<form:form action="/review/${artist.id}" modelAttribute="newReview"
 						method="post">
 						<form:textarea class="review form-control" rows="3"
-							path="reviewBody" placeholder="Leave a Review" />
+							path="reviewBody" placeholder="Leave a Review"
+							style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 54px;" />
 						<form:errors path="reviewBody" />
 						<form:input path="artistId" type="hidden" value="${artist.id}" />
 						<form:input path="user" type="hidden" value="${currentUser.id}" />
 						<form:errors path="user" msg="Must be logged in" />
-						<form:select path="rating">
+					
+						<form:select class="custom-select" style="width:150px; height:32px;" path="rating">
 							<form:option value="1" />
 							<form:option value="2" />
 							<form:option value="3" />
 							<form:option value="4" />
 							<form:option value="5" />
 						</form:select>
+						
 						<input class="btn btn-success btn-green" type="submit"
 							value="Post" />
 					</form:form>
@@ -172,43 +175,85 @@
 			</c:choose>
 		</div>
 	</div>
-	<div class="container">
+	
 		<div class="rowReview text-center">
 			<div class="col-sm-6 col-md-4">
 				<div class="testimonial-box">
-					
-						
-					<div class="ratings-icons">
-						<span class="glyphicon glyphicon-star"></span> <span
-							class="glyphicon glyphicon-star"></span> <span
-							class="glyphicon glyphicon-star"></span> <span
-							class="glyphicon glyphicon-star"></span> <span
-							class="glyphicon glyphicon-star"></span>
-					</div>
-					<c:forEach items="${reviews}" var="review">
+					<div class="reviews">
+						<c:forEach items="${reviews}" var="review">
 							<div>
-								<h4> <c:out
-										value="${review.user.firstName} ${review.user.lastName}." />
-								</h4> <a href="/user/${review.user.id}"> <img
-									src="${review.user.file}" alt="user-img" />
+								<h4>
+									<c:out value="${review.user.firstName} ${review.user.lastName}" />
+								</h4>
+								<a href="/user/${review.user.id}"> <%-- <img
+									src="${review.user.file}" alt="user-img" /> --%>
 								</a>
 							</div>
-							<c:out value="${review.reviewBody}" />
-							<p>
+							<c:out value="${review.reviewBody} ${review.rating }" />
+							<div class="reviewDate">
 								Posted:
-								<fmt:formatDate dateStyle="short" value="${review.createdAt}"></fmt:formatDate>
-							</p>
+								<fmt:formatDate type ="date" dateStyle="short" value="${review.createdAt}"></fmt:formatDate>
+							</div>
 						</c:forEach>
-					<h4><c:out value="${review.user.firstName} ${review.user.lastName}." /></h4>
-					<p><c:out value="${review.reviewBody}" /></p>
-
+						<h4>
+							<c:out value="${review.user.firstName} ${review.user.lastName}" />
+						</h4>
+						<%-- <p>
+							<c:out value="${review.reviewBody}" />
+						</p> --%>
+					</div>
 				</div>
 
 			</div>
 			<!-- End Col -->
 		</div>
 	</div>
+	<!-- <div class="text-right">
+		<a style="display: inline-block;" href="#reviews-anchor"
+			id="open-review-box" class="btn btn-success btn-green">Leave a
+			Review</a>
+	</div> -->
+	<div class="row" id="post-review-box" style="display: none;">
+		<div class="col-md-12">
+			<form:form action="/review/${artist.id}" modelAttribute="newReview"
+				method="post">
+				<%-- 
+				<form:hidden id="ratings-hidden" path="rating" />
+				<form:hidden path="product.id" /> --%>
 
+
+				<div class="col-md-12" style="margin-top: 2rem;">
+					<%-- <form:textarea class="review form-control" rows="3"
+							path="reviewBody" placeholder="Leave a Review"
+						style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 54px;"
+						 class="form-control animated" 
+						  ></form:textarea>  --%>
+				</div>
+				<div class="text-right">
+					<div class="stars starrr" data-rating="0"></div>
+					<a href="#" class="btn btn-danger btn-sm" id="close-review-box"
+						style="margin-right: 10px; display: none;"> <span
+						class="glyphicon glyphicon-remove"></span>Cancel
+					</a>
+					<button class="btn btn-success btn-lg" type="submit">Save</button>
+				</div>
+			</form:form>
+		</div>
+	</div>
+	<!--popup-->
+	<div id="popup" class="popup-wrapper" style="display: none;">
+		<div class="popup-content">
+			<div class="popup-title">
+				<button type="button" class="popup-close">×</button>
+				<h3></h3>
+			</div>
+			<div class="popup-body">Popup body</div>
+		</div>
+	</div>
+
+
+	
+	
 
 
 	<%-- <div class="reviews">
