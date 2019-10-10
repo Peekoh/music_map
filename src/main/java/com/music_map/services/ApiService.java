@@ -95,6 +95,7 @@ public class ApiService {
 		final GetArtistsRelatedArtistsRequest getRelated = spotifyApi.getArtistsRelatedArtists(id).build();
 		try {
 			final Artist[] artists = getRelated.execute();
+			System.out.println("ARTISTS" + artists);
 			return artists;
 		} catch (IOException | SpotifyWebApiException e) {
 			System.out.println("ERROR: " + e.getMessage());

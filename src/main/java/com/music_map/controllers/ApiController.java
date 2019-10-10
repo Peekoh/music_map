@@ -6,7 +6,6 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -110,13 +109,26 @@ public class ApiController {
 	}
 
 	// ARTIST EXPLORE
-	@GetMapping("/explore/{artistId}")
+	@RequestMapping("/explore/{artistId}")
 	public String artistExplore(Model model, @PathVariable("artistId") String artistId, HttpSession session) {
 		Artist[] related = api.findRelated(artistId);
 		Artist artist = api.findArtistById(artistId);
 		model.addAttribute("artist", artist);
 		model.addAttribute("relatedArtists", related);
 		return "exploreArtist.jsp";
+	}
+	
+	//GET RELATED ARTIST
+	@GetMapping("/api/{id}")
+	@ResponseBody
+	public Artist[] grabRelated(@PathVariable("id") String id) {
+		return api.findRelated(id);
+	}
+	//GET ARTIST
+	@GetMapping("/api/artist/{id}")
+	@ResponseBody
+	public Artist grabArtist(@PathVariable("id") String id) {
+		return api.findArtistById(id);
 	}
 
 	// VIEW USER
@@ -135,7 +147,7 @@ public class ApiController {
 //		ProfilePic p = mainService.getPic(viewedUser.getProfilePic().getId());
 //		model.addAttribute("pic", p.getFileName());
 //		model.addAttribute("viewedUser", viewedUser);
-	//	ProfilePic p = viewedUser.getProfilePic();
+		// ProfilePic p = viewedUser.getProfilePic();
 		// model.addAttribute("pic", p.getUri());
 		// get artists that are reviewed
 		List<Review> reviews = mainService.getUserReviews(viewedUser);
@@ -157,25 +169,26 @@ public class ApiController {
 		// mainService.savePic(dbFile);
 
 		// DOWNLOAD FILE
-		
-		 ResponseEntity.ok().contentType(MediaType.parseMediaType(dbFile.getFileType()
-		  )) .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" +
-		  dbFile.getFileName() + "\"") .body(new ByteArrayResource(dbFile.getData()));
-		  System.out.println("test");
-		 
+
+		ResponseEntity.ok().contentType(MediaType.parseMediaType(dbFile.getFileType()))
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + dbFile.getFileName() + "\"")
+				.body(new ByteArrayResource(dbFile.getData()));
+		System.out.println("test");
 
 		return "redirect:/user/" + userId + "";
 	}
 
 	// Load file from database
 
-	//@GetMapping("/download/{fileId}")
+	// @GetMapping("/download/{fileId}")
 //	@ResponseBody
-/*	public ResponseEntity<Resource> downloadFile(@PathVariable("fileId") String fileId) {
-		ProfilePic dbFile = mainService.getPic(fileId);
-		return ResponseEntity.ok().contentType(MediaType.parseMediaType(dbFile.getFileType()))
-				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + dbFile.getFileName() + "\"")
-				.body(new ByteArrayResource(dbFile.getData()));
-	}*/
+	/*
+	 * public ResponseEntity<Resource> downloadFile(@PathVariable("fileId") String
+	 * fileId) { ProfilePic dbFile = mainService.getPic(fileId); return
+	 * ResponseEntity.ok().contentType(MediaType.parseMediaType(dbFile.getFileType()
+	 * )) .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" +
+	 * dbFile.getFileName() + "\"") .body(new ByteArrayResource(dbFile.getData()));
+	 * }
+	 */
 
 }
