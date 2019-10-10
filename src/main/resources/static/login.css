@@ -115,20 +115,25 @@ Fallback for IE
 
 .navbar {
   overflow: hidden;
-  background-color: #333;
+  background-color: black;
+ /*  background-color:rgb(0,0,0,0.2); */
   width: 100%;
-  border-radius: 0px !important; 
-  margin-bottom: 0px !important;
+  border-radius: 0px !important;
+  margin-bottom: 0px; 
+}
+
+#userName {
+	color: white;
+	margin-left: 2%;
+    margin-top: 0.5%;
 }
 
 .navbar a {
-  float: left;
   font-size: 16px;
   color: white;
   text-align: center;
-  padding: 14px 16px;
   text-decoration: none;
-  
+  margin-left: 2%;
 }
 
 .dropdown {
@@ -147,11 +152,11 @@ Fallback for IE
   margin: 0;
 }
 
-.navbar a:hover,
+/* .navbar a:hover,
 .dropdown:hover .dropbtn {
   background-color: red;
 }
-
+ */
 .dropdown-content {
   display: none;
   position: absolute;
@@ -177,6 +182,76 @@ Fallback for IE
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
+/* #vid{
+    position: absolute;
+    top: 50%; 
+    left: 50%;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    min-width: 100%; 
+    min-height: 100%; 
+    width: auto; 
+    height: auto;
+    z-index: -1000; 
+    overflow: hidden;
+  } */
+
+#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -1000;
+}
+
+.search-form {
+    display: inline-flex;
+    margin-top: 0em;
+}
+
+
+
+.search {
+  top: 0;
+  bottom: auto;
+  position: absolute;
+  margin: 0;
+  color: white;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+}
+
+input.transparent-input{
+    background-color:transparent !important;
+    border:none !important;
+ }
+ 
+ .homeLogin {
+ margin-top: 0.5%;
+ display: inline-flex;
+ margin-left: 3%;
+ }
+ 
+ 
+ .homeReg {
+ 	display: inline-flex;
+ 	margin-left: 2%;
+ }
+ 
+ .fa {
+ margin-left: 5%;
+ margin-top: 4%;
+ }
+ 
+ .musicMap {
+ 	margin-left: 75%;
+ 	
+ }
+
 
 /* ==========================================================================
    #FONT
@@ -308,6 +383,7 @@ Fallback for IE
     font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
     font-weight: 400;
     font-size: 14px;
+    height: 100%;
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -355,6 +431,7 @@ Fallback for IE
     background: -moz-linear-gradient(bottom, rgba(229, 103, 90, 1) 0%, rgba(48, 25, 38) 100%);
     background: -o-linear-gradient(bottom, rgba(229, 103, 90, 11) 0%, rgba(48, 25, 38) 100%);
     background: linear-gradient(to top, rgba(229, 103, 90, 1) 0%, rgba(48, 25, 381) 100%); 
+    
   }
   
   /* ==========================================================================
@@ -704,4 +781,21 @@ Fallback for IE
       padding-bottom: 45px;
     }
   }
+  
+  .musicMap {
+ 	margin-left: 75%;
+ 	
+ }
+ 
+ .homeLogin {
+ margin-top: 0.5%;
+ display: inline-flex;
+ margin-left: 3%;
+ }
+ 
+ 
+ .homeReg {
+ 	display: inline-flex;
+ 	margin-left: 2%;
+ }
   

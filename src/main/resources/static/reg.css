@@ -3,20 +3,25 @@
 
 .navbar {
   overflow: hidden;
-  background-color: #333;
+  background-color: black;
+ /*  background-color:rgb(0,0,0,0.2); */
   width: 100%;
-  border-radius: 0px !important; 
-  margin-bottom: 0px !important;
+  border-radius: 0px !important;
+  margin-bottom: 0px; 
+}
+
+#userName {
+	color: white;
+	margin-left: 2%;
+    margin-top: 0.5%;
 }
 
 .navbar a {
-  float: left;
   font-size: 16px;
   color: white;
   text-align: center;
-  padding: 14px 16px;
   text-decoration: none;
-  
+  margin-left: 2%;
 }
 
 .dropdown {
@@ -35,10 +40,10 @@
   margin: 0;
 }
 
-.navbar a:hover,
+/* .navbar a:hover,
 .dropdown:hover .dropbtn {
   background-color: red;
-}
+} */
 
 .dropdown-content {
   display: none;
@@ -66,6 +71,10 @@
   display: block;
 }
 
+ .musicMap {
+ 	margin-left: 75%;
+ 	
+ }
 
 
 
