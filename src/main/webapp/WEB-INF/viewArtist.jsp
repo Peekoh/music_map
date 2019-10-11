@@ -177,23 +177,23 @@
 							<fieldset class="rating">
 
 								<input path="rating" name="rating" type="radio" id="rating5"
-									value="☆☆☆☆☆" on="change:rating.submit" />
+									value="5" on="change:rating.submit" />
 								<form:label path="rating" for="rating5" title="5 stars">☆</form:label>
 
 								<input path="rating" name="rating" type="radio" id="rating4"
-									value="☆☆☆☆" on="change:rating.submit" />
+									value="4" on="change:rating.submit" />
 								<form:label path="rating" for="rating4" title="4 stars">☆</form:label>
 
 								<input path="rating" name="rating" type="radio" id="rating3"
-									value="☆☆☆" on="change:rating.submit" />
+									value="3" on="change:rating.submit" />
 								<form:label path="rating" for="rating3" title="3 stars">☆</form:label>
 
 								<input path="rating" name="rating" type="radio" id="rating2"
-									value="☆☆" on="change:rating.submit" />
+									value="2" on="change:rating.submit" />
 								<form:label path="rating" for="rating2" title="2 stars">☆</form:label>
 
 								<input path="rating" name="rating" type="radio" id="rating1"
-									value="☆" on="change:rating.submit" />
+									value="1" on="change:rating.submit" />
 								<form:label path="rating" for="rating1" title="1 stars">☆</form:label>
 							</fieldset>
 						</div>
