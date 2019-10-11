@@ -351,11 +351,11 @@ input.transparent-input{
 
 /* -- color classes -- */
 .coralbg {
-    background-color: #FA396F;
+    background-color: #2e353d;
 } 
 
 .coral {
-    color: #FA396f;
+    color: black;
 }
 
 .turqbg {
@@ -372,6 +372,7 @@ input.transparent-input{
 
 /* -- The "User's Menu Container" specific elements. Custom container for the snippet -- */
 div.user-menu-container {
+  /* width: 950px; */
   z-index: 10;
   background-color: #fff;
   margin-top: 20px;
@@ -411,9 +412,9 @@ div.user-menu-container .btn-group-vertical {
 
 div.user-menu-container .btn-group-vertical>a {
     padding: 20px 25px;
-    background-color: #46D8D2;
+    background-color: #2e353d;;
     color: white;
-    border-color: #fff;
+    border-color: rgb(39, 38, 39);
 }
 
 div.btn-group-vertical>a:hover {
@@ -422,7 +423,7 @@ div.btn-group-vertical>a:hover {
 }
 
 div.btn-group-vertical>a.active {
-    background: #FA396F;
+    background: #2e353d;
     box-shadow: none;
     color: white;
 }
@@ -442,7 +443,7 @@ div.user-menu-btns div.btn-group-vertical>a.active:after{
   border-left: 0;
   border-bottom: 13px solid transparent;
   border-top: 13px solid transparent;
-  border-left: 10px solid #46D8D2;
+  border-left: 10px solid black;
 }
 /* -- The main tab & content styling of the vertical buttons info-- */
 div.user-menu-content {
@@ -454,7 +455,7 @@ ul.user-menu-list {
     margin-top: 20px;
     margin-bottom: 0;
     padding: 10px;
-    border: 1px solid #eee;
+    border: 2px solid #000;
 }
 ul.user-menu-list>li {
     padding-bottom: 8px;
@@ -484,10 +485,7 @@ div.user-menu div.user-menu-content:not(.active){
 .user-details {
     background: #282627;
     min-height: 333px;
-    
-    
-    
-    
+     
 }
 
 .user-image {
@@ -499,6 +497,7 @@ div.user-menu div.user-menu-content:not(.active){
     font-weight: 300;
     margin-top: 15px;
     margin: 10px 0 0 0;
+    color: white;
 }
 
 .overview h4 {
@@ -584,3 +583,4 @@ div.user-menu div.user-menu-content:not(.active){
 #user-info {
 	margin-right:10%;
 }
+

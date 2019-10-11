@@ -67,15 +67,18 @@
 					<c:when test="${currentUser != null }">
 						<ul id="menu-content" class="menu-content collapse out">
 							<li data-toggle="collapse" data-target="#service"
-								class="collapsed"><a href="#"> <i
+								class="collapsed">
+								<a href="#"> <i
 									class="fa fa-sign-out fa-lg"></i> Logout <span class="arrow"></span>
-
-							</a></li>
+								</a>
+							</li>
 							<ul class="sub-menu collapse" id="service">
 								<ul class="right">
-
-									<li><a href="/logout"> <i class="material-icons left"></i>Logout
-									</a></li>
+									<li>
+										<a href="/logout"> 
+											<i class="material-icons left"></i>Logout
+										</a>
+									</li>
 								</ul>
 							</ul>
 					</c:when>
@@ -93,6 +96,7 @@
                             </li>
                         </ul> -->
 				</ul>
+
 				<li data-toggle="collapse" data-target="#team" class="collapsed">
 					<a href="#"> <i class="fa fa-music"></i> Genre <span
 						class="arrow"></span>
@@ -123,9 +127,9 @@
 
 	</nav>
 	<div class="container">
-		<div class="row user-menu-container square"> 
+		<div class="row user-menu-container square">
 			<div class="col-md-7 user-details">
- 				<div class="row coralbg white"> 
+				<div class="row coralbg white">
 					<div class="col-md-6 no-pad">
 						<div class="user-pad">
 							<h3>
@@ -136,6 +140,9 @@
 							<h4 class="white">
 								<i class="fa fa-envelope-o"></i>
 								<c:out value="${currentUser.email }" />
+								<br> User Since:
+								<fmt:formatDate dateStyle="short"
+									value="${viewedUser.createdAt}"></fmt:formatDate>
 							</h4>
 							<button type="button" class="btn btn-labeled btn-info" href="#">
 								<span class="btn-label"><i class="fa fa-pencil"></i></span>Update
@@ -144,24 +151,26 @@
 					</div>
 					<div class="col-md-6 no-pad">
 						<div class="user-image">
-							<img src="" class="img-responsive thumbnail">
+							<img
+								src="https://images.pexels.com/photos/1626481/pexels-photo-1626481.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+								class="img-responsive thumbnail">
 						</div>
 					</div>
 				</div>
-				 <div class="row overview">
-                <div class="col-md-4 user-pad text-center">
-                    <h3>FOLLOWERS</h3>
-                    <h4>2,784</h4>
-                </div>
-                <div class="col-md-4 user-pad text-center">
-                    <h3>FOLLOWING</h3>
-                    <h4>456</h4>
-                </div>
-                <div class="col-md-4 user-pad text-center">
-                    <h3>APPRECIATIONS</h3>
-                    <h4>4,901</h4>
-                </div>
-            </div> 
+				<div class="row overview">
+					<div class="col-md-4 user-pad text-center">
+						<h3>REVIEWS</h3>
+						<h4>84</h4>
+					</div>
+					<div class="col-md-4 user-pad text-center">
+						<h3>ARTIST</h3>
+						<h4>16</h4>
+					</div>
+					<div class="col-md-4 user-pad text-center">
+						<h3>APPRECIATIONS</h3>
+						<h4>4,901</h4>
+					</div>
+				</div>
 			</div>
 			<div class="col-md-1 user-menu-btns">
 				<div class="btn-group-vertical square" id="responsive">
@@ -183,9 +192,8 @@
 						<c:forEach items="${history}" var="i">
 							<li>
 								<h4>
-									<i class="fa fa-user coral"></i>
-									<a href="/view/${i.id}">
-									<c:out value="${i.name}" />
+									<i class="fa fa-user coral"></i> <a href="/view/${i.id}"> <c:out
+											value="${i.name}" />
 									</a>
 								</h4>
 							</li>
@@ -221,17 +229,20 @@
 					<h3>Your Review</h3>
 					<ul class="user-menu-list">
 						<c:forEach items="${viewedUser.reviews}" var="review">
-							<li>
-								<h4>
-									<i class="fa fa-star coral"></i>
-									<a href="/view/${i.id}">
-									<c:out value="${review.reviewBody}" />
-									</a>
-								</h4>
-							</li>
+							<c:forEach items="${reviewedArtists}" var="artist">
 
+
+								<li>
+									<h4>
+										<i class="fa fa-star coral"></i> <a href="/view/${aritst.id}">
+											<c:out value="${review.reviewBody}" /> / <c:out
+												value="${artist.name}" />
+										</a>
+									</h4>
+								</li>
+							</c:forEach>
 						</c:forEach>
-						
+
 					</ul>
 				</div>
 				<!-- <div class="user-menu-content">
@@ -285,28 +296,40 @@
 						</div>
 					</div>
 				</div> -->
-				<%-- <div class="user-menu-content">
-					<h2 class="text-center">START SHARING</h2>
+				<div class="user-menu-content">
+					<h2 class="text-center">UPLOAD IMAGE</h2>
 					<center>
 						<i class="fa fa-cloud-upload fa-4x"></i>
 					</center>
 					<div class="share-links">
 						<center>
-							<button type="button" class="btn btn-lg btn-labeled btn-success"
+							<c:choose>
+								<c:when test="${currentUser == viewedUser}">
+									<div id="photo-upload-container-closed">
+										<input type="file" class="btn btn-primary btn-sm float-left"
+											href="#" style="margin-bottom: 15px;"> </input>
+									</div>
+									<div id="photo-upload-container-open">
+										<form action="/upload" method="post"
+											enctype="multipart/form-data"></form>
+
+									</div>
+								</c:when>
+							</c:choose>
+							<!-- <button type="button" class="btn btn-lg btn-labeled btn-success"
 								href="#" style="margin-bottom: 15px;">
-								<span class="btn-label"><i class="fa fa-bell-o"></i></span>A
-								FINISHED PROJECT
-							</button>
+								<span class="btn-label"><i class="fa fa-bell-upload"></i></span>CHOOSE FILE
+							</button> -->
 						</center>
 						<center>
-							<button type="button" class="btn btn-lg btn-labeled btn-warning"
+							<!-- <button type="button" class="btn btn-lg btn-labeled btn-warning"
 								href="#">
 								<span class="btn-label"><i class="fa fa-bell-o"></i></span>A
 								WORK IN PROGRESS
-							</button>
+							</button> -->
 						</center>
 					</div>
-				</div> --%>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -320,7 +343,10 @@
 			<c:choose>
 				<c:when test="${currentUser == viewedUser}">
 					<div id="photo-upload-container-closed">
-						<button id="change-photo">Change Photo</button>
+						<button type="button" class="btn btn-lg btn-labeled btn-success"
+								href="#" style="margin-bottom: 15px;">
+								<span class="btn-label"><i class="fa fa-bell-upload"></i></span>CHOOSE FILE
+							</button>
 					</div>
 					<div id="photo-upload-container-open">
 						<form action="/upload" method="post" enctype="multipart/form-data">

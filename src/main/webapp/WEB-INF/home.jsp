@@ -26,7 +26,7 @@
         <div class="homeReg"><a href="/register">Register</a></div>
     </c:when>
     <c:otherwise><div class="userName">
-    <!-- <span>Hello</span> --> <a href="/user/${currentUser.id }"><c:out value="${currentUser.firstName} ${currentUser.lastName }"/></a>
+    <!-- <span>Hello</span> --> <a href="/user/${currentUser.id }"><c:out value="${currentUser.firstName}"/></a>
     </div>
      <a class="homeLogout" href="/logout">Logout</a>
     </c:otherwise>
