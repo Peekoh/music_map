@@ -219,7 +219,8 @@
 									src="${review.user.file}" alt="user-img" /> --%>
 							</a>
 						</div>
-						<c:out value="${review.reviewBody} ${review.rating }" />
+						<c:out value="${review.reviewBody}" /> <br>
+						 Rating: <c:out value="${review.rating }"/>
 						<div class="reviewDate">
 							Posted:
 							<fmt:formatDate type="date" dateStyle="short"
