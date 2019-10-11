@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.music_map.models.History;
 import com.music_map.models.Review;
 import com.music_map.models.User;
+import com.neovisionaries.i18n.CountryCode;
 //import com.music_map.services.*;
 import com.wrapper.spotify.SpotifyApi;
 import com.wrapper.spotify.exceptions.SpotifyWebApiException;
@@ -22,9 +23,10 @@ import com.wrapper.spotify.model_objects.specification.Artist;
 import com.wrapper.spotify.model_objects.specification.Paging;
 import com.wrapper.spotify.requests.authorization.client_credentials.ClientCredentialsRequest;
 import com.wrapper.spotify.requests.data.artists.GetArtistRequest;
-import com.wrapper.spotify.requests.data.artists.GetArtistsAlbumsRequest;
 import com.wrapper.spotify.requests.data.artists.GetArtistsRelatedArtistsRequest;
+import com.wrapper.spotify.requests.data.search.simplified.SearchAlbumsRequest;
 import com.wrapper.spotify.requests.data.search.simplified.SearchArtistsRequest;
+import com.wrapper.spotify.requests.data.search.simplified.SearchArtistsRequest.Builder;
 
 @Service
 public class ApiService {
@@ -50,7 +52,6 @@ public class ApiService {
 			// Set access token for further "spotifyApi" object usage
 			spotifyApi.setAccessToken(clientCredentials.getAccessToken());
 			System.out.println(clientCredentials.getAccessToken());
-
 			System.out.println("Expires in: " + clientCredentials.getExpiresIn());
 		} catch (CompletionException e) {
 			System.out.println("Error: " + e.getCause().getMessage());
@@ -72,7 +73,6 @@ public class ApiService {
 		final GetArtistRequest getArtistRequest = spotifyApi.getArtist(id).build();
 		try {
 			final Artist artist = getArtistRequest.execute();
-			System.out.println(artist.getName());
 			return artist;
 		} catch (IOException | SpotifyWebApiException e) {
 			System.out.println("ERROR: " + e.getMessage());
@@ -82,14 +82,22 @@ public class ApiService {
 
 	// GET ALBUMS OF ARTIST
 	public Paging<AlbumSimplified> findAlbums(String id) {
-		final GetArtistsAlbumsRequest getAlbums = spotifyApi.getArtistsAlbums(id).build();
+		// get artist
+		GetArtistRequest getArtistRequest = spotifyApi.getArtist(id).build();
 		try {
-			final Paging<AlbumSimplified> albumPaging = getAlbums.execute();
-			return albumPaging;
+			Artist artist = getArtistRequest.execute();
+
+			// get albums
+			final SearchAlbumsRequest searchAlbumsRequest = spotifyApi.searchAlbums((String) artist.getName())
+					.market(CountryCode.US).build();
+			try {
+				Paging<AlbumSimplified> albums = searchAlbumsRequest.execute();
+				return albums;
+			} catch (IOException | SpotifyWebApiException e) {}
 		} catch (IOException | SpotifyWebApiException e) {
-			System.out.println("ERROR: " + e.getMessage());
-			return null;
 		}
+		return null;
+
 	}
 
 	// GET RELATED ARTIST
@@ -102,7 +110,6 @@ public class ApiService {
 			for (int i = 0; i < 10; i++) {
 				limited[i] = artists[i];
 			}
-			System.out.println("ARTISTS" + limited);
 			return limited;
 		} catch (IOException | SpotifyWebApiException e) {
 			System.out.println("ERROR: " + e.getMessage());
@@ -118,7 +125,6 @@ public class ApiService {
 			final GetArtistRequest getArtistRequest = spotifyApi.getArtist(artistId).build();
 			try {
 				final Artist artist = getArtistRequest.execute();
-				System.out.println(artist.getName());
 				reviewedArtists.add(artist);
 			} catch (IOException | SpotifyWebApiException e) {
 				System.out.println("ERROR: " + e.getMessage());
@@ -139,8 +145,8 @@ public class ApiService {
 				final GetArtistRequest getArtistRequest = spotifyApi.getArtist(id).build();
 				try {
 					final Artist artist = getArtistRequest.execute();
-						al.add(artist);
-					
+					al.add(artist);
+
 				} catch (IOException | SpotifyWebApiException e) {
 				}
 			}
@@ -150,12 +156,11 @@ public class ApiService {
 				final GetArtistRequest getArtistRequest = spotifyApi.getArtist(id).build();
 				try {
 					final Artist artist = getArtistRequest.execute();
-						al.add(artist);
+					al.add(artist);
 				} catch (IOException | SpotifyWebApiException e) {
 				}
 			}
 		}
-	//	Collections.reverse(hl);
 		return al;
 	}
 

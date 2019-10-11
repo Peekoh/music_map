@@ -118,14 +118,15 @@ public class ApiController {
 		model.addAttribute("relatedArtists", related);
 		return "exploreArtist.jsp";
 	}
-	
-	//GET RELATED ARTIST
+
+	// GET RELATED ARTIST
 	@GetMapping("/api/{id}")
 	@ResponseBody
 	public Artist[] grabRelated(@PathVariable("id") String id) {
 		return api.findRelated(id);
 	}
-	//GET ARTIST
+
+	// GET ARTIST
 	@GetMapping("/api/artist/{id}")
 	@ResponseBody
 	public Artist grabArtist(@PathVariable("id") String id) {
@@ -145,12 +146,12 @@ public class ApiController {
 		// gets user of profile
 		User viewedUser = mainService.findUserById(viewId);
 		model.addAttribute("viewedUser", viewedUser);
-		
-		//get history
+
+		// get history
 		List<Artist> history = api.getHistory(viewedUser);
 		model.addAttribute("history", history);
-		
-		//get reviews
+
+		// get reviews
 		List<Review> reviews = mainService.getUserReviews(viewedUser);
 		List<Artist> reviewedArtists = api.findReviewArtists(reviews);
 		model.addAttribute("reviewedArtists", reviewedArtists);
