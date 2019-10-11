@@ -10,7 +10,6 @@ $(function(){
 		  dataType:"json",
 		success: function(data){
 			artist = data;
-			console.log(artist);
 		},
 		error: function(err){
 			console.log(err);
@@ -25,7 +24,6 @@ $(function(){
 			  let related = data;
 			  console.log(related);
 			  let length = related.length;
-			  console.log("length"+ length);
 			  let children = [];
 			  for(let i = 0; i < related.length; i++){
 				  children.push({
@@ -48,7 +46,6 @@ $(function(){
 					"children":children
 					}
 				]	
-			  console.log(treeData);
 			  drawChart(treeData);
 			  return;
 			  },
@@ -115,11 +112,12 @@ $(function(){
 	.append("clipPath:circle")
 	.attr("r", d => d.data.value*3)
 		.attr("fill", "#fff")
-
 	.attr("cx", d => d.data.value *6)
 	.attr("cy", d => d.data.value *6);
-	    
-	node.append("def:image")
+	
+	node.append("a")
+	.attr("href",d=>"/explore/"+d.data.id+"")
+	.append("a:image")
 	.attr("xlink:href", d => d.data.pic)
 		.attr("width", d => d.data.value *10)
 	.attr("height", d => d.data.value *10)
@@ -127,14 +125,12 @@ $(function(){
   .attr("x", d => d.data.value + 5)
   .attr("y", d => d.data.value) 
   
-
-
-
   node.append("text") 
   .attr("dy", "5.4em") 
   .attr("x", d => d.data.value +40)
   .attr("y", d => d.data.value +130) 
   .style("text-anchor",  "start") 
+  .style("color", "#fff")
   .text(d => d.data.name);
   
  

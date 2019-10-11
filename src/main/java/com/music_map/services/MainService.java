@@ -98,7 +98,6 @@ public class MainService {
 		for (int i = 0; i < hl.size(); i++) {
 			System.out.println(hl.get(i).getArtistId());
 			System.out.println(h.getArtistId());
-
 			if (h.getArtistId().equals(hl.get(i).getArtistId())) {
 			//historyRepository.save(hl.get(i));
 			System.out.println("ALREADY VIEWED");
