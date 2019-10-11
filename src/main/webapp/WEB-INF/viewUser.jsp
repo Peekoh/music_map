@@ -6,30 +6,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="../viewUser.css">
-<script src="../viewUser.js"></script>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<meta charset="UTF-8">
-<!-- <link
+<link
 	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
 	rel="stylesheet" id="bootstrap-css">
 <script
 	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
----- Include the above in your HEAD tag --------
+<!------ Include the above in your HEAD tag ---------->
 
 <link
 	href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css"
@@ -51,7 +34,7 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<meta charset="UTF-8"> -->
+<meta charset="UTF-8">
 </head>
 <body>
 	<nav class="navbar navbar-inverse sidebar navbar-fixed-top"
@@ -61,11 +44,13 @@
 			<i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse"
 				data-target="#menu-content"></i>
 			<div class="menu-list" style="margin-left: 10px;">
-				<li data-toggle="collapse" data-target="#user">
-				<a href="/">
+				<li data-toggle="collapse" data-target="#user"><a href="/">
 						<i class="fa fa-home"></i> Home
+
 				</a></li>
 				<li data-toggle="collapse" data-target="#user">
+
+
 					<form action="/search" class="search-form" method="get">
 						<div class="search">
 							<!-- <i class="fa fa-search" aria-hidden="true"></i> -->
@@ -75,6 +60,8 @@
 								aria-label="Search">
 						</div>
 					</form>
+
+
 				</li>
 				<c:choose>
 					<c:when test="${currentUser != null }">
@@ -171,7 +158,7 @@
 						<h4>84</h4>
 					</div>
 					<div class="col-md-4 user-pad text-center">
-						<h3>ARTIST VIEWED</h3>
+						<h3>ARTIST</h3>
 						<h4>16</h4>
 					</div>
 					<div class="col-md-4 user-pad text-center">
@@ -237,22 +224,22 @@
 					<h3>Your Review</h3>
 					<ul class="user-menu-list">
 						<c:forEach items="${viewedUser.reviews}" var="review">
+							<c:out value="${review.reviewBody}" />
 							<c:forEach items="${reviewedArtists}" var="artist">
+								<p>
+								<a href="/view/${artist.id}">
+									<c:out value="Review of: ${artist.name}" />
+								</a>
 
+								</p>
+								<p>
+									Posted:
+									<fmt:formatDate dateStyle="short" value="${review.createdAt}"></fmt:formatDate>
 
-
-								<li>
-									<h4>
-										<i class="fa fa-star coral"></i> <a href="/view/${artist.id}">
-											<c:out value="${review.reviewBody}" /> / <c:out
-												value="${artist.name}" />
-										</a>
-									</h4>
-								</li>
+								</p>
 							</c:forEach>
+
 						</c:forEach>
-
-
 					</ul>
 				</div>
 				<!-- <div class="user-menu-content">
