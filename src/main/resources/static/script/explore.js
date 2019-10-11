@@ -33,7 +33,7 @@ $(function(){
 					  "id": related[i].id,
 					  "pic":related[i].images[0].url,
 						"value": 20,
-						"level":"green",
+						"level":"#fff",
 						"type":"grey",
 				  },)
 			  }
@@ -62,7 +62,7 @@ $(function(){
 		console.log(treeData);
 		const margin = {top: 20, right: 90, bottom: 30, left: 90},
 	      width  = 900 - margin.left - margin.right,
-	      height = 1800 - margin.top - margin.bottom;
+	      height = 1600 - margin.top - margin.bottom;
 
 	// declares a tree layout and assigns the size
 	const treemap = d3.tree().size([height, width]);
@@ -90,9 +90,11 @@ $(function(){
 	  .enter().append("path")
 	    .attr("class", "link")
 	    .style("stroke", d => d.data.level)
+	    		.attr("r", d => d.data.value*3)
+
 	    .attr("d", d => {
-	       return "M" + d.y + "," + d.x
-	         + "C" + (d.y + d.parent.y) / 2 + "," + d.x
+	       return "M" + d.y + "," + (d.x+30)
+	         + "C" + (d.y + d.parent.y) / 2 + "," + (d.x+30)
 	         + " " + (d.y + d.parent.y) / 2 + "," + d.parent.x
 	         + " " + d.parent.y + "," + d.parent.x;
 	       });
@@ -102,37 +104,38 @@ $(function(){
 	    .data(nodes.descendants())
 	    .enter().append("g")
 	    .attr("class", d => "node" + (d.children ? " node--internal" : " node--leaf"))
-	    .attr("transform", d => "translate(" + d.y + "," + d.x + ")")
-	.attr("width", d => d.data.value *5)
-	.attr("height", d => d.data.value *5);
-	
-	
+	    .attr("transform", d => "translate(" + (d.y-90) + "," + (d.x+170) + " )")
+	.attr("width", d => d.data.value *50)
+	.attr("height", d => d.data.value *50)
 
-
-	node.append("defs")
-	.append("defs:filter")
+	node.append("defs")	
+	.append("defs:clipPath")
 	.attr("id", d => "circleView"+d.data.id+"")
-	.append("filter:feImage")
-	.attr("xlink:href", d => d.data.pic)
-	node.append("a:circle")
-    .attr("xlink:href")
-	node.append("a")
-	.attr("href", d=> "/explore/" + d.data.id)
-	node.append("a:circle")
+
+	.append("clipPath:circle")
 	.attr("r", d => d.data.value*3)
-	.attr("fill", d => "url(#circleView)")
-	.attr("filter", d => "url(#circleView"+d.data.id+")")
-	.attr("width", d => d.data.value *5)
-	.attr("height", d => d.data.value *5);
-	
-	       
+		.attr("fill", "#fff")
+
+	.attr("cx", d => d.data.value *6)
+	.attr("cy", d => d.data.value *6);
+	    
+	node.append("def:image")
+	.attr("xlink:href", d => d.data.pic)
+		.attr("width", d => d.data.value *10)
+	.attr("height", d => d.data.value *10)
+	.attr("clip-path", d => "url(#circleView"+d.data.id+")")
+  .attr("x", d => d.data.value + 5)
+  .attr("y", d => d.data.value) 
   
 
 
 
-  node.append("text") .attr("dy", "5.4em") .attr("x", "-3.4em", d => d.data.value + 5)
-  .attr("y", d => d.data.value + 5) .style("text-anchor", d => d.children ?
-  "end" : "start") .text(d => d.data.name);
+  node.append("text") 
+  .attr("dy", "5.4em") 
+  .attr("x", d => d.data.value +40)
+  .attr("y", d => d.data.value +130) 
+  .style("text-anchor",  "start") 
+  .text(d => d.data.name);
   
  
 	

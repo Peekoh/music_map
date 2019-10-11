@@ -77,6 +77,7 @@ public class ApiController {
 			User user = mainService.findUserById(userId);
 			mainService.addHistory(artistId, user);
 			model.addAttribute("currentUser", user);
+			System.out.println("USER SET");
 		} else {
 			model.addAttribute("currentUser", null);
 		}
@@ -112,6 +113,16 @@ public class ApiController {
 	// ARTIST EXPLORE
 	@RequestMapping("/explore/{artistId}")
 	public String artistExplore(Model model, @PathVariable("artistId") String artistId, HttpSession session) {
+		Long userId = (Long) session.getAttribute("userId");
+		System.out.println("USER ID" + userId);
+		if (userId != null) {
+			User user = mainService.findUserById(userId);
+			mainService.addHistory(artistId, user);
+			model.addAttribute("currentUser", user);
+			System.out.println("USER SET");
+		} else {
+			model.addAttribute("currentUser", null);
+		}
 		Artist[] related = api.findRelated(artistId);
 		Artist artist = api.findArtistById(artistId);
 		model.addAttribute("artist", artist);
