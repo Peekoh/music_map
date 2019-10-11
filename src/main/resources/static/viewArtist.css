@@ -446,9 +446,11 @@ footer {
 
 
 .artistImg {
-	margin-left: 20%;
+	margin-left: 35%;
 	opacity: 0.4;
 	border-radius: 20px;
+	object-fit: cover;
+	width: 30%;
 }
 /* @media (min-width: 992px) {
     .container {
@@ -556,7 +558,7 @@ input.transparent-input{
  	text-align: center;
  	font-size: 40px;
  	color:white;
- 	margin-bottom: 4%;
+ 	
  }
  
  h2 {
@@ -721,5 +723,6 @@ button, input, optgroup, select, textarea {
     opacity: 0;  /* comment to see where the radio buttons are */
     font-size: initial; /* reset to default */
   }
+  
 
 
