@@ -22,12 +22,28 @@
 </head>
 <style>
 svg {
-transform:rotate(90deg);
+transform:rotate(90deg); 
 margin:auto;
 display:block;
+z-index: -100000;
+position: relative;
+}
+
+
+
+
+.node--leaf {
+	border-raidus: 30%;
+}
+
+h1 {
+	text-align: center;
+}
+.viewArtist {
+	text-align: center;
 }
 image{
-
+	border-radius: 50%;
 }
 .node circle {
   fill: #fff;
@@ -35,13 +51,15 @@ image{
   stroke-width: 3px;
   transform:rotate(270deg);
   
+  
+  
 }
 filter{
 width:100%;
 height:100%;
 }
 
-.node text { font: 16px sans-serif; }
+.node text { font: 12px sans-serif; transform: rotate(270deg);  }
 
 .link {
   fill: none;
@@ -52,6 +70,12 @@ height:100%;
 margin-left:;
 
 }
+ 
+ node .defs {
+ 	border-radius: 25px;
+ }
+
+
 </style>
 <body>
 
@@ -59,8 +83,9 @@ margin-left:;
 	<h1>
 		<c:out value="${artist.name}" />
 	</h1>
+	<div class="viewArtist">
 	<a href="/view/${artist.id}">View Artist</a>
-
+	</div>
 <div id="explore"></div>
 <%-- 	<c:forEach items="${relatedArtists}" var="r">
 		<div>

@@ -482,8 +482,12 @@ div.user-menu div.user-menu-content:not(.active){
 }
 
 .user-details {
-    background: #eee;
+    background: #282627;
     min-height: 333px;
+    
+    
+    
+    
 }
 
 .user-image {
@@ -575,4 +579,8 @@ div.user-menu div.user-menu-content:not(.active){
 
 .reviewUser {
 	margin-left: 50%;
+}
+
+#user-info {
+	margin-right:10%;
 }
