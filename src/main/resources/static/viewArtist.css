@@ -671,122 +671,55 @@ button, input, optgroup, select, textarea {
     font-style: italic;
     font-weight: 400;
 }
-/* .ratings-icons {
-    color: #fec42d;
-    margin-bottom: 15px;
-} */
-
-/* .rating {
-    overflow: hidden;	
-    display: inline-block;
-}
-
-.rating-input {
-    float: right;
-    width: 16px;
-    height: 16px;
-    padding: 0;
-    margin: 0 0 0 -16px;
-    opacity: 0;
-}
-
-
-.rating-star:hover {
-    background-position: 0 0;
-}
-
-.rating-star,
-.rating:hover .rating-star {
-    position: relative;
-    float: right;
-    display: block;
-    width: 16px;
-    height: 16px;
-    background: url('/samples/star-rating/star.png') 0 -16px;
-}
-
-.rating-star:hover,
-.rating-star:hover ~ .rating-star,
-.rating-input:checked ~ .rating-star {
-    background-position: 0 0;
-} */
-
+/****** STAR RATING *********/
 .rating {
-
-margin: 0;
-
-padding: 0;
-
-list-style: none;
-
-clear: both;
-
-width: 75px;
-
-height: 15px;
-
-background-image: url(stars.gif);
-
-background-repeat: no-repeat;
-
-position: relative;
-
-}
-
-.rating li {
-
-text-indent: −9999em;
-
-float: left; /* for IE6 */
-
-}
-
-.rating li a {
-
-position: absolute;
-
-top: 0;
-
-left: 0;
-
-z-index: 20;
-
-height: 15px;
-
-width: 15px;
-
-display: block;
-
-}
-
-.rating .one a {
-
-left: 0;
-
-}
-
-.rating .two a {
-
-left: 15px;
-
-}
-
-.rating .three a {
-
-left: 30px;
-
-}
-
-.rating .four a {
-
-left: 45px;
-
-}
-
-.rating .five a {
-
-left: 60px;
-
-}
+    -star-size: 1;  /* use CSS variables to calculate dependent dimensions later */
+    padding: 0;  /* to prevent flicker when mousing over padding */
+    border: none;  /* to prevent flicker when mousing over border */
+    unicode-bidi: bidi-override; direction: rtl;  /* for CSS-only style change on hover */
+    text-align: left;  /* revert the RTL direction */
+    user-select: none;  /* disable mouse/touch selection */
+    font-size: 1em;  /* fallback - IE doesn't support CSS variables */
+    font-size: calc(var(--star-size) * 1em);  /* because var(--star-size)em would be too good to be true */
+    cursor: pointer;
+    /* disable touch feedback on cursor: pointer - http://stackoverflow.com/q/25704650/1269037 */
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: transparent;
+    
+  }
+  /* the stars */
+  .rating > label {
+    display: inline-block;
+    position: relative;
+    width: 1em;  /* magic number to overlap the radio buttons on top of the stars */
+    width: calc(var(--star-size) / 1 * 1.1em);
+  }
+  .rating > *:hover,
+  .rating > *:hover ~ label,
+  .rating:not(:hover) > input:checked ~ label {
+    color: transparent;  /* reveal the contour/white star from the HTML markup */
+    cursor: inherit;  /* avoid a cursor transition from arrow/pointer to text selection */
+  }
+  .rating > *:hover:before,
+  .rating > *:hover ~ label:before,
+  .rating:not(:hover) > input:checked ~ label:before {
+    content: "☆";
+    position: absolute;
+    left: 0;
+    color:#ffd900;
+  }
+.rating > input {
+    position: relative;
+    transform: scale(3);  /* make the radio buttons big; they don't inherit font-size */
+    transform: scale(var(--star-size));
+    /* the magic numbers below correlate with the font-size */
+    top: -0.5em;  /* margin-top doesn't work */
+    top: calc(var(--star-size) / 6 * -1em);
+    margin-left: -2.5em;  /* overlap the radio buttons exactly under the stars */
+    margin-left: calc(var(--star-size) / 4 * -5em);
+    z-index: 2;  /* bring the button above the stars so it captures touches/clicks */
+    opacity: 0;  /* comment to see where the radio buttons are */
+    font-size: initial; /* reset to default */
+  }
 
 

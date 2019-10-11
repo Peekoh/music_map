@@ -167,24 +167,33 @@
 							<form:option value="4" />
 							<form:option value="5" />
 						</form:select> --%>
-						<span class="rating"> <input type="radio" value="1"
-							class="rating-input" id="rating-input-1-5" name="rating-input-1" >
-							<label for="rating-input-1-5" class="rating-star"></label> 
-							<input value="2"
-							type="radio" class="rating-input" id="rating-input-1-4"
-							name="rating-input-1"> <label for="rating-input-1-4"
-							class="rating-star"></label>
-							 <input type="radio" value="3"
-							class="rating-input" id="rating-input-1-3" name="rating-input-1">
-							<label for="rating-input-1-3" class="rating-star"></label> 
-							<input value="4"
-							type="radio" class="rating-input" id="rating-input-1-2"
-							name="rating-input-1"> <label for="rating-input-1-2"
-							class="rating-star"></label> 
-							<input type="radio" value="5"
-							class="rating-input" id="rating-input-1-1" name="rating-input-1">
-							<label for="rating-input-1-1" class="rating-star"></label>
-						</span>
+						
+
+						<div style="display: flex; flex-direction: row">
+							<form:label type="number" path="rating" class="mr-2"></form:label>
+							<fieldset class="rating">
+
+								<input path="rating" name="rating" type="radio" id="rating5"
+									value="☆☆☆☆☆" on="change:rating.submit" />
+								<form:label path="rating" for="rating5" title="5 stars">☆</form:label>
+
+								<input path="rating" name="rating" type="radio" id="rating4"
+									value="☆☆☆☆" on="change:rating.submit" />
+								<form:label path="rating" for="rating4" title="4 stars">☆</form:label>
+
+								<input path="rating" name="rating" type="radio" id="rating3"
+									value="☆☆☆" on="change:rating.submit" />
+								<form:label path="rating" for="rating3" title="3 stars">☆</form:label>
+
+								<input path="rating" name="rating" type="radio" id="rating2"
+									value="☆☆" on="change:rating.submit" />
+								<form:label path="rating" for="rating2" title="2 stars">☆</form:label>
+
+								<input path="rating" name="rating" type="radio" id="rating1"
+									value="☆" on="change:rating.submit" />
+								<form:label path="rating" for="rating1" title="1 stars">☆</form:label>
+							</fieldset>
+						</div>
 
 						<input class="btn btn-success btn-green" type="submit"
 							value="Post" />
