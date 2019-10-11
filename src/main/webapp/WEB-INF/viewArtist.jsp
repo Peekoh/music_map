@@ -116,8 +116,11 @@
 	<h1 class="name">
 		<c:out value="${artist.name}" />
 	</h1>
-	<img class="artistImg" src="${artist.images[0].url}" alt="artist-pic"
-		width=55% height=500px />
+	<h2>
+		<a  class="exploreArtist" href="/explore/${artist.id }">Explore</a>
+	</h2>
+	<img class="artistImg" src="${artist.images[0].url}" alt="artist-pic" />
+	
 	<div class="album text-muted">
 		<div class="container">
 			<div class="row">
