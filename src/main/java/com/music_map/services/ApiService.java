@@ -131,6 +131,7 @@ public class ApiService {
 
 	public List<Artist> getHistory(User u) {
 		List<History> hl = u.getHistory();
+		Collections.reverse(hl);
 		List<Artist> al = new ArrayList<>();
 		if (hl.size() <= 5) {
 			for (int i = 0; i < hl.size(); i++) {
@@ -154,7 +155,7 @@ public class ApiService {
 				}
 			}
 		}
-		Collections.reverse(al);
+	//	Collections.reverse(hl);
 		return al;
 	}
 
