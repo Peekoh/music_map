@@ -42,8 +42,7 @@ $(function(){
 					"name":artist.name,
 					"id":artist.id,
 					  "pic":artist.images[0].url,
-
-					"value": 100,
+					"value": 30,
 					"level":"green",
 					"type":"grey",
 					"children":children
@@ -79,6 +78,7 @@ $(function(){
 	// moves the 'group' element to the top left margin
 	const svg = d3.select("#explore").append("svg")
 	        .attr("width", width + margin.left + margin.right)
+	        
 	        .attr("height", height + margin.top + margin.bottom),
 	      g = svg.append("g")
 	        // .attr("transform","translate(" + margin.left + "," + margin.top +
@@ -103,40 +103,37 @@ $(function(){
 	    .enter().append("g")
 	    .attr("class", d => "node" + (d.children ? " node--internal" : " node--leaf"))
 	    .attr("transform", d => "translate(" + d.y + "," + d.x + ")")
-		//.style("width", "rotate(270deg)")
 	.attr("width", d => d.data.value *5)
 	.attr("height", d => d.data.value *5);
-		
+	
+	
+
+
 	node.append("defs")
 	.append("defs:filter")
 	.attr("id", d => "circleView"+d.data.id+"")
 	.append("filter:feImage")
 	.attr("xlink:href", d => d.data.pic)
-	
+	node.append("a:circle")
+    .attr("xlink:href")
 	node.append("a")
 	.attr("href", d=> "/explore/" + d.data.id)
-	.append("a:circle")
+	node.append("a:circle")
 	.attr("r", d => d.data.value*3)
-	//.attr("fill", d => "url(#circleView)")
+	.attr("fill", d => "url(#circleView)")
 	.attr("filter", d => "url(#circleView"+d.data.id+")")
 	.attr("width", d => d.data.value *5)
 	.attr("height", d => d.data.value *5);
-
-
-
-
 	
-	// node.append("img:circle")
-	  // .attr("r", d => d.data.value)
-	  // .style("stroke", d => d.data.level)
-	  // .attr("filter",d => "url("+d.data.pic+")" )
-	 	// .attr("r", d => d.data.value)
-	  
-	// adds the text to the node
+	       
+  
 
-  node.append("text") .attr("dy", ".35em") .attr("x", d => d.data.value + 5)
+
+
+  node.append("text") .attr("dy", "5.4em") .attr("x", "-3.4em", d => d.data.value + 5)
   .attr("y", d => d.data.value + 5) .style("text-anchor", d => d.children ?
   "end" : "start") .text(d => d.data.name);
+  
  
 	
 	

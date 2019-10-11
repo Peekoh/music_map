@@ -159,15 +159,33 @@
 						<form:input path="artistId" type="hidden" value="${artist.id}" />
 						<form:input path="user" type="hidden" value="${currentUser.id}" />
 						<form:errors path="user" msg="Must be logged in" />
-					
-						<form:select class="custom-select" style="width:150px; height:32px;" path="rating">
+
+						<%-- <form:select class="custom-select" style="width:150px; height:32px;" path="rating">
 							<form:option value="1" />
 							<form:option value="2" />
 							<form:option value="3" />
 							<form:option value="4" />
 							<form:option value="5" />
-						</form:select>
-						
+						</form:select> --%>
+						<span class="rating"> <input type="radio" value="1"
+							class="rating-input" id="rating-input-1-5" name="rating-input-1" >
+							<label for="rating-input-1-5" class="rating-star"></label> 
+							<input value="2"
+							type="radio" class="rating-input" id="rating-input-1-4"
+							name="rating-input-1"> <label for="rating-input-1-4"
+							class="rating-star"></label>
+							 <input type="radio" value="3"
+							class="rating-input" id="rating-input-1-3" name="rating-input-1">
+							<label for="rating-input-1-3" class="rating-star"></label> 
+							<input value="4"
+							type="radio" class="rating-input" id="rating-input-1-2"
+							name="rating-input-1"> <label for="rating-input-1-2"
+							class="rating-star"></label> 
+							<input type="radio" value="5"
+							class="rating-input" id="rating-input-1-1" name="rating-input-1">
+							<label for="rating-input-1-1" class="rating-star"></label>
+						</span>
+
 						<input class="btn btn-success btn-green" type="submit"
 							value="Post" />
 					</form:form>
@@ -175,38 +193,39 @@
 			</c:choose>
 		</div>
 	</div>
-	
-		<div class="rowReview text-center">
-			<div class="col-sm-6 col-md-4">
-				<div class="testimonial-box">
-					<div class="reviews">
-						<c:forEach items="${reviews}" var="review">
-							<div>
-								<h4>
-									<c:out value="${review.user.firstName} ${review.user.lastName}" />
-								</h4>
-								<a href="/user/${review.user.id}"> <%-- <img
+
+	<div class="rowReview text-center">
+		<div class="col-sm-6 col-md-4">
+			<div class="testimonial-box">
+				<div class="reviews">
+					<c:forEach items="${reviews}" var="review">
+						<div>
+							<h4>
+								<c:out value="${review.user.firstName} ${review.user.lastName}" />
+							</h4>
+							<a href="/user/${review.user.id}"> <%-- <img
 									src="${review.user.file}" alt="user-img" /> --%>
-								</a>
-							</div>
-							<c:out value="${review.reviewBody} ${review.rating }" />
-							<div class="reviewDate">
-								Posted:
-								<fmt:formatDate type ="date" dateStyle="short" value="${review.createdAt}"></fmt:formatDate>
-							</div>
-						</c:forEach>
-						<h4>
-							<c:out value="${review.user.firstName} ${review.user.lastName}" />
-						</h4>
-						<%-- <p>
+							</a>
+						</div>
+						<c:out value="${review.reviewBody} ${review.rating }" />
+						<div class="reviewDate">
+							Posted:
+							<fmt:formatDate type="date" dateStyle="short"
+								value="${review.createdAt}"></fmt:formatDate>
+						</div>
+					</c:forEach>
+					<h4>
+						<c:out value="${review.user.firstName} ${review.user.lastName}" />
+					</h4>
+					<%-- <p>
 							<c:out value="${review.reviewBody}" />
 						</p> --%>
-					</div>
 				</div>
-
 			</div>
-			<!-- End Col -->
+
 		</div>
+		<!-- End Col -->
+	</div>
 	</div>
 	<!-- <div class="text-right">
 		<a style="display: inline-block;" href="#reviews-anchor"
@@ -252,8 +271,8 @@
 	</div>
 
 
-	
-	
+
+
 
 
 	<%-- <div class="reviews">

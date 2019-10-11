@@ -123,9 +123,9 @@
 
 	</nav>
 	<div class="container">
-		<div class="row user-menu-container square">
+		<div class="row user-menu-container square"> 
 			<div class="col-md-7 user-details">
-				<div class="row coralbg white">
+ 				<div class="row coralbg white"> 
 					<div class="col-md-6 no-pad">
 						<div class="user-pad">
 							<h3>
@@ -148,7 +148,7 @@
 						</div>
 					</div>
 				</div>
-				<!--  <div class="row overview">
+				 <div class="row overview">
                 <div class="col-md-4 user-pad text-center">
                     <h3>FOLLOWERS</h3>
                     <h4>2,784</h4>
@@ -161,7 +161,7 @@
                     <h3>APPRECIATIONS</h3>
                     <h4>4,901</h4>
                 </div>
-            </div> -->
+            </div> 
 			</div>
 			<div class="col-md-1 user-menu-btns">
 				<div class="btn-group-vertical square" id="responsive">
@@ -220,33 +220,21 @@
 				<div class="user-menu-content">
 					<h3>Your Review</h3>
 					<ul class="user-menu-list">
-						<li>
-							<h4>
-								From Roselyn Smith <small class="coral"><strong>NEW</strong>
-									<i class="fa fa-clock-o"></i> 7:42 A.M.</small>
-							</h4>
-						</li>
-						<li>
-							<h4>
-								From Jonathan Hawkins <small class="coral"><i
-									class="fa fa-clock-o"></i> 10:42 A.M.</small>
-							</h4>
-						</li>
-						<li>
-							<h4>
-								From Georgia Jennings <small class="coral"><i
-									class="fa fa-clock-o"></i> 10:42 A.M.</small>
-							</h4>
-						</li>
-						<li>
-							<button type="button" class="btn btn-labeled btn-danger" href="#">
-								<span class="btn-label"><i class="fa fa-envelope-o"></i></span>View
-								All Messages
-							</button>
-						</li>
+						<c:forEach items="${viewedUser.reviews}" var="review">
+							<li>
+								<h4>
+									<i class="fa fa-star coral"></i>
+									<a href="/view/${i.id}">
+									<c:out value="${review.reviewBody}" />
+									</a>
+								</h4>
+							</li>
+
+						</c:forEach>
+						
 					</ul>
 				</div>
-				<div class="user-menu-content">
+				<!-- <div class="user-menu-content">
 					<h3>Trending</h3>
 					<div class="row">
 						<div class="col-md-6">
@@ -296,8 +284,8 @@
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="user-menu-content">
+				</div> -->
+				<%-- <div class="user-menu-content">
 					<h2 class="text-center">START SHARING</h2>
 					<center>
 						<i class="fa fa-cloud-upload fa-4x"></i>
@@ -318,14 +306,14 @@
 							</button>
 						</center>
 					</div>
-				</div>
+				</div> --%>
 			</div>
 		</div>
 	</div>
 
-	<div class="reviewUser">
+	<%-- <div class="reviewUser">
 		<h1>
-			<c:out value="${viewedUser.firstName} ${viewedUser.lastName}" />
+			Update Pic!
 		</h1>
 		<div id="user-info">
 			<img src="/download/${pic}" alt="profile-img" />
@@ -366,6 +354,6 @@
 			</c:forEach>
 		</div>
 	</div>
-	<script src="/script/photoUpload.js"></script>
+	<script src="/script/photoUpload.js"></script> --%>
 </body>
 </html>

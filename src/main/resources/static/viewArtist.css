@@ -671,68 +671,122 @@ button, input, optgroup, select, textarea {
     font-style: italic;
     font-weight: 400;
 }
-.ratings-icons {
+/* .ratings-icons {
     color: #fec42d;
     margin-bottom: 15px;
+} */
+
+/* .rating {
+    overflow: hidden;	
+    display: inline-block;
 }
 
-.custom-select {
-  position: relative;
-  font-family: Arial;
+.rating-input {
+    float: right;
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    margin: 0 0 0 -16px;
+    opacity: 0;
 }
 
-.custom-select select {
-  display: none; /*hide original SELECT element: */
+
+.rating-star:hover {
+    background-position: 0 0;
 }
 
-.select-selected {
-  background-color: DodgerBlue;
+.rating-star,
+.rating:hover .rating-star {
+    position: relative;
+    float: right;
+    display: block;
+    width: 16px;
+    height: 16px;
+    background: url('/samples/star-rating/star.png') 0 -16px;
 }
 
-/* Style the arrow inside the select element: */
-.select-selected:after {
-  position: absolute;
-  content: "";
-  top: 14px;
-  right: 10px;
-  width: 0;
-  height: 0;
-  border: 6px solid transparent;
-  border-color: #fff transparent transparent transparent;
+.rating-star:hover,
+.rating-star:hover ~ .rating-star,
+.rating-input:checked ~ .rating-star {
+    background-position: 0 0;
+} */
+
+.rating {
+
+margin: 0;
+
+padding: 0;
+
+list-style: none;
+
+clear: both;
+
+width: 75px;
+
+height: 15px;
+
+background-image: url(stars.gif);
+
+background-repeat: no-repeat;
+
+position: relative;
+
 }
 
-/* Point the arrow upwards when the select box is open (active): */
-.select-selected.select-arrow-active:after {
-  border-color: transparent transparent #fff transparent;
-  top: 7px;
+.rating li {
+
+text-indent: −9999em;
+
+float: left; /* for IE6 */
+
 }
 
-/* style the items (options), including the selected item: */
-.select-items form,.select-selected {
-  color: #ffffff;
-  padding: 8px 16px;
-  border: 1px solid transparent;
-  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
-  cursor: pointer;
+.rating li a {
+
+position: absolute;
+
+top: 0;
+
+left: 0;
+
+z-index: 20;
+
+height: 15px;
+
+width: 15px;
+
+display: block;
+
 }
 
-/* Style items (options): */
-.select-items {
-  position: absolute;
-  background-color: DodgerBlue;
-  top: 100%;
-  left: 0;
-  right: 0;
-  z-index: 99;
+.rating .one a {
+
+left: 0;
+
 }
 
-/* Hide the items when the select box is closed: */
-.select-hide {
-  display: none;
+.rating .two a {
+
+left: 15px;
+
 }
 
-.select-items div:hover, .same-as-selected {
-  background-color: rgba(0, 0, 0, 0.1);
+.rating .three a {
+
+left: 30px;
+
+}
+
+.rating .four a {
+
+left: 45px;
+
+}
+
+.rating .five a {
+
+left: 60px;
+
 }
 
 
